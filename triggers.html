@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gifting Triggers - Imvu Market</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fill-current { fill: currentColor; }
+
+        /* Dropdown Animation */
+        .dropdown-menu {
+            display: none;
+            transform-origin: top right;
+            animation: scaleIn 0.2s ease-out forwards;
+        }
+        
+        .group:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Fade in scale animation */
+        .fade-in-scale {
+            animation: scaleIn 0.15s ease-out forwards;
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            animation: modalIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Custom Scrollbar for Modal */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #08020a; 
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #ff0055; 
+            border-radius: 4px;
+        }
+
+        /* Star Rating Hover Effect */
+        .star-btn:hover,
+        .star-btn:hover ~ .star-btn {
+            color: #d1d5db; /* gray-300 on hover out context, controlled via JS for fill */
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white bg-[#08020a] selection:bg-[#ff0055]/40 selection:text-white flex flex-col">
+
+    <!-- Topmost Language & Social Bar -->
+    <div class="w-full bg-[#050106] border-b border-[#ff0055]/20 flex justify-end items-center px-4 xl:px-8 py-2 gap-5 text-gray-400 text-xs z-50 relative">
+        <div class="flex items-center gap-3">
+            <a href="https://twitter.com" target="_blank" class="hover:text-[#ff0055] transition-colors drop-shadow-[0_0_2px_rgba(255,0,85,0.5)]"><i data-lucide="twitter" class="w-3.5 h-3.5"></i></a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-[#ff0055] transition-colors drop-shadow-[0_0_2px_rgba(255,0,85,0.5)]"><i data-lucide="instagram" class="w-3.5 h-3.5"></i></a>
+        </div>
+    </div>
+
+    <!-- Top Banner -->
+    <div class="w-full bg-gradient-to-r from-[#ff0055] to-[#aa0038] text-white border-b border-[#ff0055]/30 text-center py-2 text-sm font-bold tracking-widest shadow-[0_0_15px_rgba(255,0,85,0.3)] relative z-50">
+        Welcome To Imvu Bm Market Shop Now!
+    </div>
+
+    <!-- Navbar -->
+    <nav class="w-full bg-[#0d0415]/95 backdrop-blur-md border-b border-[#ff0055]/30 sticky top-0 z-40 shadow-[0_4px_30px_rgba(255,0,85,0.15)]">
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 h-20 flex items-center justify-between">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-10 h-10 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold text-xl shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all">
+                    🦁
+                </div>
+                <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">Imvu Market</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-4 text-[13px] font-bold text-gray-300">
+                <a href="index.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Home</a>
+                
+                <!-- Shop Now Dropdown -->
+                <div class="relative group py-6">
+                    <button class="flex items-center gap-1 text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">
+                        Shop Now <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-[100%] -mt-2 w-48 pt-2 hidden group-hover:block z-50">
+                        <div class="bg-[#12051a]/95 backdrop-blur-md border border-[#ff0055]/30 rounded-xl shadow-[0_0_20px_rgba(255,0,85,0.3)] flex flex-col py-2 overflow-hidden">
+                            <a href="triggers.html" class="px-4 py-2.5 bg-[#ff0055]/10 text-[#ff0055] pl-5 transition-all duration-300 block">Triggers</a>
+                            <a href="rooms.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Rooms</a>
+                            <a href="long-poses.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Long Poses</a>
+                            <a href="furniture.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Furniture pack</a>
+                            <a href="credits.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Credits</a>
+                            <a href="vcoins.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Vcoins</a>
+                            <a href="accessories.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Accessories</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Bundles</a>
+                <a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Track Order</a>
+                <a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Support</a>
+                <a href="about.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">About Us</a>
+                <a href="donate.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all flex items-center gap-1">Donate <span class="text-[#ff0055] drop-shadow-[0_0_5px_rgba(255,0,85,0.8)]">❤️</span></a>
+                
+                <!-- DYNAMIC AUTH SECTION (JS will populate this) -->
+                <div id="auth-container" class="ml-2 relative">
+                    <!-- Default Login Button -->
+                    <a href="login.html" id="nav-login-btn" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                </div>
+            </div>
+
+            <!-- Utilities (Right Side) -->
+            <div class="flex items-center gap-4 text-gray-300">
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="https://discord.com" target="_blank" title="Join Discord">
+                        <svg class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    </a>
+                    
+                    <div class="h-5 w-px bg-gray-700/50 mx-1"></div>
+                    
+                    <i data-lucide="search" class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                    
+                    <!-- DYNAMIC USER ICON SECTION (Top Right) -->
+                    <div id="user-profile-btn" class="cursor-pointer relative">
+                         <!-- Content injected by JS -->
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                    </div>
+                </div>
+                <a href="cart.html" class="relative cursor-pointer group flex items-center gap-1">
+                    <i data-lucide="shopping-cart" class="w-6 h-6 group-hover:text-[#ff0055] group-hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                    <!-- Cart Badge -->
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#ff0055] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-[0_0_10px_rgba(255,0,85,0.8)]">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Widgets: Currency Sidebar -->
+    <div id="currency-sidebar" class="fixed left-0 top-1/3 -translate-y-1/2 z-50 bg-[#12051a]/90 backdrop-blur-md border border-[#ff0055]/30 rounded-r-xl shadow-[0_0_20px_rgba(255,0,85,0.2)] flex flex-col p-1 overflow-hidden"></div>
+
+    <!-- Global Widgets: Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div class="bg-[#12051a]/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_0_20px_rgba(255,0,85,0.3)] border border-[#ff0055]/30 text-sm font-medium text-gray-200 animate-bounce">
+            Welcome! 🤩 Got a question? Chat with us now
+        </div>
+        <button class="bg-[#ff0055] hover:bg-[#d40047] text-white px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(255,0,85,0.6)] flex items-center gap-2 transition-transform hover:scale-105 relative border border-white/20">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse absolute top-0 right-0 -mt-1 -mr-1 shadow-[0_0_8px_white]"></div>
+            Online
+            <span class="absolute -top-2 -right-2 bg-[#00b67a] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-[#12051a]">1</span>
+        </button>
+    </div>
+
+    <!-- MAIN PAGE CONTENT: TRIGGERS CATEGORY -->
+    <main id="app-main" class="flex-grow">
+        
+        <!-- Category Hero -->
+        <section class="py-12 relative overflow-hidden bg-gradient-to-r from-[#6e0b26] to-[#000000]">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10 text-center">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter drop-shadow-lg uppercase">TRIGGERS 🍆</h1>
+                </div>
+                <p class="text-lg text-white font-medium drop-shadow-md">Delivered by Username • No Login Needed</p>
+                <div class="flex items-center justify-center gap-2 mt-4 text-sm font-bold text-[#ff0055] drop-shadow-sm bg-black/40 py-2 rounded-full w-fit mx-auto px-6 border border-[#ff0055]/30">
+                     <i data-lucide="alert-triangle" class="w-4 h-4"></i> Warranty is void if Trigger Rules is not followed
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 py-10 relative z-10">
+            
+            <!-- Info Box (Rules & Instructions) -->
+            <div class="bg-[#12051a] border border-[#ff0055] rounded-2xl shadow-[0_0_30px_rgba(255,0,85,0.15)] p-8 mb-12 text-gray-300 text-sm relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff0055] to-transparent"></div>
+                
+                <div class="flex items-start gap-3 mb-8 bg-[#ff0055]/10 p-4 rounded-xl border border-[#ff0055]/30">
+                    <i data-lucide="info" class="w-5 h-5 text-[#ff0055] mt-0.5 flex-shrink-0"></i>
+                    <p class="text-white font-medium">Please read the <strong>Trigger Rules</strong> and <strong>How It Works</strong> before purchasing a trigger.</p>
+                </div>
+
+                <!-- Trigger Rules Section -->
+                <div class="mb-10 border-b border-[#ff0055]/20 pb-10">
+                    <h3 class="text-2xl font-black text-white mb-6 uppercase tracking-wide flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-6 h-6 text-[#ff0055]"></i> Trigger Rules
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-1 gap-8">
+                        <div>
+                            <p class="mb-4 text-gray-400">Please make these settings changes before buying anything or claiming any rewards.</p>
+                            <a href="https://www.imvu.com/catalog/web_myaccount.php" target="_blank" class="inline-block mb-6 text-[#ff0055] hover:text-white underline decoration-[#ff0055] underline-offset-4 transition-colors font-bold">
+                                Access Account Settings &rarr;
+                            </a>
+                            
+                            <div class="bg-black/30 p-6 rounded-xl border border-gray-800">
+                                <h4 class="font-bold text-white mb-4 uppercase text-xs tracking-widest text-gray-500">Required Settings:</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-2"><span class="text-green-500 font-bold">1.</span> <span>Do Not Show Products in Scene – <strong class="text-green-400">Turn ON</strong> (it's at the very top).</span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">2.</span> <span>Meet New People Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">3.</span> <span>My Outfits Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">4.</span> <span>My Rankings Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">5.</span> <span>My Rooms Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">6.</span> <span>Someone Special Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">7.</span> <span>My Stickers Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                </ul>
+                                <p class="mt-4 text-[#ff0055] font-bold text-xs uppercase"><i data-lucide="alert-circle" class="w-3 h-3 inline mr-1"></i> Important: Click Update Preference every time you change a setting in any section.</p>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-red-900/20 border border-red-500/50 rounded-xl">
+                                <h5 class="text-red-400 font-bold mb-2 uppercase text-xs flex items-center gap-2"><i data-lucide="siren" class="w-4 h-4"></i> Protection Warning</h5>
+                                <p class="text-red-200 text-sm leading-relaxed">
+                                    This is for the protection of triggers. Please read carefully: <br>
+                                    <span class="font-bold text-white">If you break the rules and use the triggers in public like a fool, you will be permanently banned from IMVU.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How It Works Section -->
+                <div>
+                    <h3 class="text-2xl font-black text-white mb-6 uppercase tracking-wide flex items-center gap-2">
+                        <i data-lucide="zap" class="w-6 h-6 text-[#ff0055]"></i> How It Works
+                    </h3>
+                    <div class="flex flex-col gap-4 text-left max-w-3xl">
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">📝</span>
+                            <p>Enter your IMVU username before payment.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">🎁</span>
+                            <p>We'll deliver the trigger as a gift directly to that username within 12—24 hours.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">🔒</span>
+                            <p>No login or password required. (Please double-check spelling.)</p>
+                        </div>
+                         <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">👻</span>
+                            <p>Trigger invisible? Use the <a href="https://www.imvu.com/shop/product.php?products_id=13069035" target="_blank" class="text-[#ff0055] underline decoration-[#ff0055]">100% Avatar Resizer</a> to fix it!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="text-center mb-10">
+                 <h2 class="text-4xl font-black text-white tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                        Gifting Triggers <span class="text-[#ff0055]">💝</span>
+                </h2>
+            </div>
+            
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+        <!-- PRODUCT MODAL -->
+        <div id="product-modal" class="fixed inset-0 z-[100] hidden">
+             <!-- Backdrop -->
+             <div class="absolute inset-0 bg-black/90 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+             
+             <!-- Modal Content -->
+             <div class="relative z-10 w-full max-w-5xl h-[90vh] bg-[#12051a] border border-[#ff0055]/30 rounded-3xl m-auto mt-5 md:mt-10 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(255,0,85,0.2)] modal-enter">
+                 
+                 <!-- Close Button -->
+                 <button onclick="closeModal()" class="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:text-[#ff0055] transition-colors">
+                     <i data-lucide="x" class="w-6 h-6"></i>
+                 </button>
+
+                 <!-- Left: Image/Media -->
+                 <div class="w-full md:w-1/2 h-64 md:h-full bg-black relative">
+                     <img id="modal-img" src="" alt="Product Detail" class="w-full h-full object-cover opacity-90">
+                     <!-- Placeholder for Video functionality -->
+                     <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#ff0055] text-white text-xs font-bold px-3 py-1 rounded-full">Preview</span>
+                     </div>
+                 </div>
+
+                 <!-- Right: Details & Reviews -->
+                 <div class="w-full md:w-1/2 h-full flex flex-col bg-[#12051a]">
+                     <!-- Scrollable Area -->
+                     <div class="flex-grow overflow-y-auto custom-scroll p-8">
+                         
+                         <div class="mb-6">
+                             <div class="flex justify-between items-start">
+                                 <div>
+                                     <span id="modal-category" class="text-[#ff0055] text-xs font-bold uppercase tracking-widest mb-1 block">CATEGORY</span>
+                                     <h2 id="modal-title" class="text-3xl font-black text-white leading-tight">Product Title</h2>
+                                 </div>
+                                 <div class="flex items-center gap-1 bg-[#ff0055]/10 px-2 py-1 rounded-lg">
+                                     <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i>
+                                     <span id="modal-rating" class="font-bold text-white text-sm">New</span>
+                                 </div>
+                             </div>
+                             <p id="modal-price" class="text-3xl font-black text-[#ff0055] mt-4 mb-2">$0.00</p>
+                             <p id="modal-subtitle" class="text-gray-400 text-sm">Product subtitle goes here.</p>
+                         </div>
+
+                         <!-- Actions -->
+                         <div class="flex gap-3 mb-8 border-b border-gray-800 pb-8">
+                             <button id="modal-buy-now" class="flex-1 py-4 bg-gradient-to-r from-[#ff0055] to-[#aa0038] rounded-xl font-bold text-white shadow-lg hover:shadow-[#ff0055]/30 transition-all transform hover:-translate-y-1">
+                                 Buy Now
+                             </button>
+                             <button id="modal-add-cart" class="flex-1 py-4 border border-gray-700 hover:border-white rounded-xl text-gray-300 hover:text-white transition-all">
+                                 Add to Cart
+                             </button>
+                         </div>
+
+                         <!-- Description -->
+                         <div class="mb-8">
+                             <h4 class="font-bold text-white mb-2">Description</h4>
+                             <p class="text-gray-400 text-sm leading-relaxed">
+                                 This premium trigger includes exclusive animations and high-quality assets. Compatible with all avatar types. Instant delivery to your account upon purchase.
+                             </p>
+                             <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Instant Delivery</li>
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Permanent Edition</li>
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 24/7 Support</li>
+                             </ul>
+                         </div>
+
+                         <!-- Reviews Section -->
+                         <div>
+                             <h4 class="font-bold text-white mb-4 flex items-center justify-between">
+                                 Reviews
+                                 <span class="text-xs text-gray-500 font-normal">Verified Purchases</span>
+                             </h4>
+                             
+                             <!-- Review List -->
+                             <div id="reviews-list" class="space-y-4 mb-6"></div>
+
+                             <!-- Add Review Form -->
+                             <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
+                                 <h5 class="text-sm font-bold text-white mb-3">Write a Review</h5>
+                                 
+                                 <!-- Star Rating Selection -->
+                                 <div class="flex gap-1 mb-3">
+                                     <button onclick="setReviewRating(1)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(2)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(3)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(4)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(5)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                 </div>
+                                 <input type="hidden" id="review-rating-value" value="5">
+
+                                 <input type="text" id="review-name" placeholder="Your Name (Optional)" class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-2 focus:border-[#ff0055] outline-none">
+                                 <textarea id="review-text" placeholder="Share your thoughts..." class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-3 focus:border-[#ff0055] outline-none" rows="2"></textarea>
+                                 <button onclick="submitReview()" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold text-white transition-colors">Post Review</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <!-- BUY NOW MODAL -->
+        <div id="buy-modal" class="fixed inset-0 z-[110] hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeBuyModal()"></div>
+            <div class="relative z-20 w-full max-w-md bg-[#12051a] border border-[#ff0055]/50 rounded-3xl p-8 shadow-[0_0_60px_rgba(255,0,85,0.3)] modal-enter">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-black text-white">Purchase Options</h3>
+                    <button onclick="closeBuyModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+                <div class="space-y-3">
+                    <a href="#" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="ticket" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord Server Ticket</span></div>
+                        <p class="text-xs text-gray-400">Allows you to create a ticket on our official server to connect with team to buy the product</p>
+                    </a>
+                    <a href="https://discord.com/users/1293592753116024928" target="_blank" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-circle" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord</span></div>
+                        <p class="text-xs text-gray-400">Allows u to contact the vip vu bm team directly on our personal discord ID</p>
+                    </a>
+                    <a href="https://wa.me/+918135896977" target="_blank" class="block p-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/50 hover:bg-[#25D366]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-square" class="text-[#25D366]"></i><span class="font-bold text-white">Proceed to buy via WhatsApp</span></div>
+                        <p class="text-xs text-gray-400">Chat directly with our sales team for instant purchase</p>
+                    </a>
+                    <a href="https://ig.me/m/vipvu.bm" target="_blank" class="block p-4 rounded-xl bg-gradient-to-r from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 border border-[#fd1d1d]/50 hover:bg-white/5 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="instagram" class="text-[#fd1d1d]"></i><span class="font-bold text-white">Proceed to buy via Instagram</span></div>
+                        <p class="text-xs text-gray-400">DM us on Instagram to complete your purchase</p>
+                    </a>
+                     <a href="https://twitter.com/vipvubm" target="_blank" class="block p-4 rounded-xl bg-[#1DA1F2]/20 border border-[#1DA1F2]/50 hover:bg-[#1DA1F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="twitter" class="text-[#1DA1F2]"></i><span class="font-bold text-white">Proceed to buy via Twitter</span></div>
+                        <p class="text-xs text-gray-400">Reach out on X (Twitter) for purchase inquiries</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#08020a] pt-20 pb-10 border-t border-[#ff0055]/30 relative overflow-hidden mt-auto">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-[#ff0055] to-transparent shadow-[0_0_15px_rgba(255,0,85,1)]"></div>
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10">
+            <!-- (Footer content same as other pages) -->
+             <div class="flex flex-col items-center justify-center mb-16">
+                <h3 class="text-3xl font-black text-white mb-6 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Customer Reviews</h3>
+                <a href="https://trustpilot.com/review/YOUR_WEBSITE.com" target="_blank" class="bg-[#12051a] border border-[#ff0055]/30 shadow-[0_0_30px_rgba(255,0,85,0.15)] rounded-2xl p-6 flex flex-col items-center max-w-sm w-full hover:scale-105 transition-transform group cursor-pointer">
+                    <div class="flex items-center gap-2 text-sm font-bold text-gray-300 mb-3 tracking-wide">
+                        <i data-lucide="star" class="w-5 h-5 text-[#00b67a] fill-current drop-shadow-[0_0_5px_rgba(0,182,122,0.6)]"></i> Trustpilot
+                    </div>
+                    <div class="flex gap-1 mb-2">
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                    </div>
+                    <div class="text-lg font-bold text-white tracking-wide">
+                        TrustScore <span class="text-[#00b67a] font-black drop-shadow-[0_0_5px_rgba(0,182,122,0.4)]">4.7</span>
+                    </div>
+                    <div class="text-sm text-gray-500 font-medium group-hover:text-white transition-colors underline decoration-transparent group-hover:decoration-white/50 underline-offset-4 mt-1">51 reviews</div>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                <div>
+                    <a href="index.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
+                        <div class="w-8 h-8 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all">🦁</div>
+                        <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">Imvu Market</span>
+                    </a>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
+                        Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of permanent BM triggers and exclusive rooms.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://discord.com" target="_blank" class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <div class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-medium text-gray-400">
+                        <li><a href="triggers.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">IMVU Triggers</a></li>
+                        <li><a href="rooms.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">IMVU Rooms</a></li>
+                        <li><a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Bundles</a></li>
+                        <li><a href="#" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">New Arrivals</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Support</h4>
+                    <ul class="space-y-4 text-sm font-medium text-gray-400">
+                        <li><a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Track Order</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Product Warranty</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Help Center</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Email Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gifting Triggers - Imvu Market</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fill-current { fill: currentColor; }
+
+        /* Dropdown Animation */
+        .dropdown-menu {
+            display: none;
+            transform-origin: top right;
+            animation: scaleIn 0.2s ease-out forwards;
+        }
+        
+        .group:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Fade in scale animation */
+        .fade-in-scale {
+            animation: scaleIn 0.15s ease-out forwards;
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            animation: modalIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Custom Scrollbar for Modal */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #08020a; 
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #ff0055; 
+            border-radius: 4px;
+        }
+
+        /* Star Rating Hover Effect */
+        .star-btn:hover,
+        .star-btn:hover ~ .star-btn {
+            color: #d1d5db; /* gray-300 on hover out context, controlled via JS for fill */
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white bg-[#08020a] selection:bg-[#ff0055]/40 selection:text-white flex flex-col">
+
+    <!-- Topmost Language & Social Bar -->
+    <div class="w-full bg-[#050106] border-b border-[#ff0055]/20 flex justify-end items-center px-4 xl:px-8 py-2 gap-5 text-gray-400 text-xs z-50 relative">
+        <div class="flex items-center gap-3">
+            <a href="https://twitter.com" target="_blank" class="hover:text-[#ff0055] transition-colors drop-shadow-[0_0_2px_rgba(255,0,85,0.5)]"><i data-lucide="twitter" class="w-3.5 h-3.5"></i></a>
+            <a href="https://instagram.com" target="_blank" class="hover:text-[#ff0055] transition-colors drop-shadow-[0_0_2px_rgba(255,0,85,0.5)]"><i data-lucide="instagram" class="w-3.5 h-3.5"></i></a>
+        </div>
+    </div>
+
+    <!-- Top Banner -->
+    <div class="w-full bg-gradient-to-r from-[#ff0055] to-[#aa0038] text-white border-b border-[#ff0055]/30 text-center py-2 text-sm font-bold tracking-widest shadow-[0_0_15px_rgba(255,0,85,0.3)] relative z-50">
+        Welcome To Imvu Bm Market Shop Now!
+    </div>
+
+    <!-- Navbar -->
+    <nav class="w-full bg-[#0d0415]/95 backdrop-blur-md border-b border-[#ff0055]/30 sticky top-0 z-40 shadow-[0_4px_30px_rgba(255,0,85,0.15)]">
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 h-20 flex items-center justify-between">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-10 h-10 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold text-xl shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all">
+                    🦁
+                </div>
+                <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">Imvu Market</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-4 text-[13px] font-bold text-gray-300">
+                <a href="index.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Home</a>
+                
+                <!-- Shop Now Dropdown -->
+                <div class="relative group py-6">
+                    <button class="flex items-center gap-1 text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">
+                        Shop Now <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-[100%] -mt-2 w-48 pt-2 hidden group-hover:block z-50">
+                        <div class="bg-[#12051a]/95 backdrop-blur-md border border-[#ff0055]/30 rounded-xl shadow-[0_0_20px_rgba(255,0,85,0.3)] flex flex-col py-2 overflow-hidden">
+                            <a href="triggers.html" class="px-4 py-2.5 bg-[#ff0055]/10 text-[#ff0055] pl-5 transition-all duration-300 block">Triggers</a>
+                            <a href="rooms.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Rooms</a>
+                            <a href="long-poses.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Long Poses</a>
+                            <a href="furniture.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Furniture pack</a>
+                            <a href="credits.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Credits</a>
+                            <a href="vcoins.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Vcoins</a>
+                            <a href="accessories.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Accessories</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Bundles</a>
+                <a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Track Order</a>
+                <a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Support</a>
+                <a href="about.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">About Us</a>
+                <a href="donate.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all flex items-center gap-1">Donate <span class="text-[#ff0055] drop-shadow-[0_0_5px_rgba(255,0,85,0.8)]">❤️</span></a>
+                
+                <!-- DYNAMIC AUTH SECTION (JS will populate this) -->
+                <div id="auth-container" class="ml-2 relative">
+                    <!-- Default Login Button -->
+                    <a href="login.html" id="nav-login-btn" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                </div>
+            </div>
+
+            <!-- Utilities (Right Side) -->
+            <div class="flex items-center gap-4 text-gray-300">
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="https://discord.com" target="_blank" title="Join Discord">
+                        <svg class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                    </a>
+                    <a href="https://whatsapp.com" target="_blank" title="Contact on WhatsApp">
+                        <svg class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </a>
+                    
+                    <div class="h-5 w-px bg-gray-700/50 mx-1"></div>
+                    
+                    <i data-lucide="search" class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                    
+                    <!-- DYNAMIC USER ICON SECTION (Top Right) -->
+                    <div id="user-profile-btn" class="cursor-pointer relative">
+                         <!-- Content injected by JS -->
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                    </div>
+                </div>
+                <a href="cart.html" class="relative cursor-pointer group flex items-center gap-1">
+                    <i data-lucide="shopping-cart" class="w-6 h-6 group-hover:text-[#ff0055] group-hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                    <!-- Cart Badge -->
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-[#ff0055] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-[0_0_10px_rgba(255,0,85,0.8)]">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Widgets: Currency Sidebar -->
+    <div id="currency-sidebar" class="fixed left-0 top-1/3 -translate-y-1/2 z-50 bg-[#12051a]/90 backdrop-blur-md border border-[#ff0055]/30 rounded-r-xl shadow-[0_0_20px_rgba(255,0,85,0.2)] flex flex-col p-1 overflow-hidden"></div>
+
+    <!-- Global Widgets: Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div class="bg-[#12051a]/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-[0_0_20px_rgba(255,0,85,0.3)] border border-[#ff0055]/30 text-sm font-medium text-gray-200 animate-bounce">
+            Welcome! 🤩 Got a question? Chat with us now
+        </div>
+        <button class="bg-[#ff0055] hover:bg-[#d40047] text-white px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(255,0,85,0.6)] flex items-center gap-2 transition-transform hover:scale-105 relative border border-white/20">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse absolute top-0 right-0 -mt-1 -mr-1 shadow-[0_0_8px_white]"></div>
+            Online
+            <span class="absolute -top-2 -right-2 bg-[#00b67a] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-[#12051a]">1</span>
+        </button>
+    </div>
+
+    <!-- MAIN PAGE CONTENT: TRIGGERS CATEGORY -->
+    <main id="app-main" class="flex-grow">
+        
+        <!-- Category Hero -->
+        <section class="py-12 relative overflow-hidden bg-gradient-to-r from-[#6e0b26] to-[#000000]">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10 text-center">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter drop-shadow-lg uppercase">TRIGGERS 🍆</h1>
+                </div>
+                <p class="text-lg text-white font-medium drop-shadow-md">Delivered by Username • No Login Needed</p>
+                <div class="flex items-center justify-center gap-2 mt-4 text-sm font-bold text-[#ff0055] drop-shadow-sm bg-black/40 py-2 rounded-full w-fit mx-auto px-6 border border-[#ff0055]/30">
+                     <i data-lucide="alert-triangle" class="w-4 h-4"></i> Warranty is void if Trigger Rules is not followed
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 py-10 relative z-10">
+            
+            <!-- Info Box (Rules & Instructions) -->
+            <div class="bg-[#12051a] border border-[#ff0055] rounded-2xl shadow-[0_0_30px_rgba(255,0,85,0.15)] p-8 mb-12 text-gray-300 text-sm relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff0055] to-transparent"></div>
+                
+                <div class="flex items-start gap-3 mb-8 bg-[#ff0055]/10 p-4 rounded-xl border border-[#ff0055]/30">
+                    <i data-lucide="info" class="w-5 h-5 text-[#ff0055] mt-0.5 flex-shrink-0"></i>
+                    <p class="text-white font-medium">Please read the <strong>Trigger Rules</strong> and <strong>How It Works</strong> before purchasing a trigger.</p>
+                </div>
+
+                <!-- Trigger Rules Section -->
+                <div class="mb-10 border-b border-[#ff0055]/20 pb-10">
+                    <h3 class="text-2xl font-black text-white mb-6 uppercase tracking-wide flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-6 h-6 text-[#ff0055]"></i> Trigger Rules
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-1 gap-8">
+                        <div>
+                            <p class="mb-4 text-gray-400">Please make these settings changes before buying anything or claiming any rewards.</p>
+                            <a href="https://www.imvu.com/catalog/web_myaccount.php" target="_blank" class="inline-block mb-6 text-[#ff0055] hover:text-white underline decoration-[#ff0055] underline-offset-4 transition-colors font-bold">
+                                Access Account Settings &rarr;
+                            </a>
+                            
+                            <div class="bg-black/30 p-6 rounded-xl border border-gray-800">
+                                <h4 class="font-bold text-white mb-4 uppercase text-xs tracking-widest text-gray-500">Required Settings:</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-2"><span class="text-green-500 font-bold">1.</span> <span>Do Not Show Products in Scene – <strong class="text-green-400">Turn ON</strong> (it's at the very top).</span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">2.</span> <span>Meet New People Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">3.</span> <span>My Outfits Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">4.</span> <span>My Rankings Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">5.</span> <span>My Rooms Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">6.</span> <span>Someone Special Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                    <li class="flex items-start gap-2"><span class="text-red-500 font-bold">7.</span> <span>My Stickers Panel – <strong class="text-red-400">Turn OFF</strong></span></li>
+                                </ul>
+                                <p class="mt-4 text-[#ff0055] font-bold text-xs uppercase"><i data-lucide="alert-circle" class="w-3 h-3 inline mr-1"></i> Important: Click Update Preference every time you change a setting in any section.</p>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-red-900/20 border border-red-500/50 rounded-xl">
+                                <h5 class="text-red-400 font-bold mb-2 uppercase text-xs flex items-center gap-2"><i data-lucide="siren" class="w-4 h-4"></i> Protection Warning</h5>
+                                <p class="text-red-200 text-sm leading-relaxed">
+                                    This is for the protection of triggers. Please read carefully: <br>
+                                    <span class="font-bold text-white">If you break the rules and use the triggers in public like a fool, you will be permanently banned from IMVU.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How It Works Section -->
+                <div>
+                    <h3 class="text-2xl font-black text-white mb-6 uppercase tracking-wide flex items-center gap-2">
+                        <i data-lucide="zap" class="w-6 h-6 text-[#ff0055]"></i> How It Works
+                    </h3>
+                    <div class="flex flex-col gap-4 text-left max-w-3xl">
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">📝</span>
+                            <p>Enter your IMVU username before payment.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">🎁</span>
+                            <p>We'll deliver the trigger as a gift directly to that username within 12—24 hours.</p>
+                        </div>
+                        <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">🔒</span>
+                            <p>No login or password required. (Please double-check spelling.)</p>
+                        </div>
+                         <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <span class="text-2xl bg-[#ff0055]/20 w-10 h-10 flex items-center justify-center rounded-full">👻</span>
+                            <p>Trigger invisible? Use the <a href="https://www.imvu.com/shop/product.php?products_id=13069035" target="_blank" class="text-[#ff0055] underline decoration-[#ff0055]">100% Avatar Resizer</a> to fix it!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="text-center mb-10">
+                 <h2 class="text-4xl font-black text-white tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                        Gifting Triggers <span class="text-[#ff0055]">💝</span>
+                </h2>
+            </div>
+            
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+        <!-- PRODUCT MODAL -->
+        <div id="product-modal" class="fixed inset-0 z-[100] hidden">
+             <!-- Backdrop -->
+             <div class="absolute inset-0 bg-black/90 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+             
+             <!-- Modal Content -->
+             <div class="relative z-10 w-full max-w-5xl h-[90vh] bg-[#12051a] border border-[#ff0055]/30 rounded-3xl m-auto mt-5 md:mt-10 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(255,0,85,0.2)] modal-enter">
+                 
+                 <!-- Close Button -->
+                 <button onclick="closeModal()" class="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:text-[#ff0055] transition-colors">
+                     <i data-lucide="x" class="w-6 h-6"></i>
+                 </button>
+
+                 <!-- Left: Image/Media -->
+                 <div class="w-full md:w-1/2 h-64 md:h-full bg-black relative">
+                     <img id="modal-img" src="" alt="Product Detail" class="w-full h-full object-cover opacity-90">
+                     <!-- Placeholder for Video functionality -->
+                     <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#ff0055] text-white text-xs font-bold px-3 py-1 rounded-full">Preview</span>
+                     </div>
+                 </div>
+
+                 <!-- Right: Details & Reviews -->
+                 <div class="w-full md:w-1/2 h-full flex flex-col bg-[#12051a]">
+                     <!-- Scrollable Area -->
+                     <div class="flex-grow overflow-y-auto custom-scroll p-8">
+                         
+                         <div class="mb-6">
+                             <div class="flex justify-between items-start">
+                                 <div>
+                                     <span id="modal-category" class="text-[#ff0055] text-xs font-bold uppercase tracking-widest mb-1 block">CATEGORY</span>
+                                     <h2 id="modal-title" class="text-3xl font-black text-white leading-tight">Product Title</h2>
+                                 </div>
+                                 <div class="flex items-center gap-1 bg-[#ff0055]/10 px-2 py-1 rounded-lg">
+                                     <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i>
+                                     <span id="modal-rating" class="font-bold text-white text-sm">New</span>
+                                 </div>
+                             </div>
+                             <p id="modal-price" class="text-3xl font-black text-[#ff0055] mt-4 mb-2">$0.00</p>
+                             <p id="modal-subtitle" class="text-gray-400 text-sm">Product subtitle goes here.</p>
+                             <!-- Added Product Description -->
+                             <p id="modal-desc-text" class="text-gray-400 text-sm mt-4 leading-relaxed"></p>
+                         </div>
+
+                         <!-- Actions -->
+                         <div class="flex gap-3 mb-8 border-b border-gray-800 pb-8">
+                             <button id="modal-buy-now" class="flex-1 py-4 bg-gradient-to-r from-[#ff0055] to-[#aa0038] rounded-xl font-bold text-white shadow-lg hover:shadow-[#ff0055]/30 transition-all transform hover:-translate-y-1">
+                                 Buy Now
+                             </button>
+                             <button id="modal-add-cart" class="flex-1 py-4 border border-gray-700 hover:border-white rounded-xl text-gray-300 hover:text-white transition-all">
+                                 Add to Cart
+                             </button>
+                         </div>
+
+                         <!-- Description -->
+                         <div class="mb-8">
+                             <h4 class="font-bold text-white mb-2">Description</h4>
+                             <p class="text-gray-400 text-sm leading-relaxed">
+                                 This premium trigger includes exclusive animations and high-quality assets. Compatible with all avatar types. Instant delivery to your account upon purchase.
+                             </p>
+                             <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Instant Delivery</li>
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 30 Days Warranty</li>
+                                 <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 24/7 Support</li>
+                             </ul>
+                         </div>
+
+                         <!-- Reviews Section -->
+                         <div>
+                             <h4 class="font-bold text-white mb-4 flex items-center justify-between">
+                                 Reviews
+                                 <span class="text-xs text-gray-500 font-normal">Verified Purchases</span>
+                             </h4>
+                             
+                             <!-- Review List -->
+                             <div id="reviews-list" class="space-y-4 mb-6"></div>
+
+                             <!-- Add Review Form -->
+                             <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
+                                 <h5 class="text-sm font-bold text-white mb-3">Write a Review</h5>
+                                 
+                                 <!-- Star Rating Selection -->
+                                 <div class="flex gap-1 mb-3">
+                                     <button onclick="setReviewRating(1)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(2)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(3)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(4)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                     <button onclick="setReviewRating(5)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
+                                 </div>
+                                 <input type="hidden" id="review-rating-value" value="5">
+
+                                 <input type="text" id="review-name" placeholder="Your Name (Optional)" class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-2 focus:border-[#ff0055] outline-none">
+                                 <textarea id="review-text" placeholder="Share your thoughts..." class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-3 focus:border-[#ff0055] outline-none" rows="2"></textarea>
+                                 <button onclick="submitReview()" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold text-white transition-colors">Post Review</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <!-- BUY NOW MODAL -->
+        <div id="buy-modal" class="fixed inset-0 z-[110] hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeBuyModal()"></div>
+            <div class="relative z-20 w-full max-w-md bg-[#12051a] border border-[#ff0055]/50 rounded-3xl p-8 shadow-[0_0_60px_rgba(255,0,85,0.3)] modal-enter">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-black text-white">Purchase Options</h3>
+                    <button onclick="closeBuyModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+                <div class="space-y-3">
+                    <a href="#" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="ticket" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord Server Ticket</span></div>
+                        <p class="text-xs text-gray-400">Allows you to create a ticket on our official server to connect with team to buy the product</p>
+                    </a>
+                    <a href="https://discord.com/users/1293592753116024928" target="_blank" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-circle" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord</span></div>
+                        <p class="text-xs text-gray-400">Allows u to contact the vip vu bm team directly on our personal discord ID</p>
+                    </a>
+                    <a href="https://wa.me/+918135896977" target="_blank" class="block p-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/50 hover:bg-[#25D366]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-square" class="text-[#25D366]"></i><span class="font-bold text-white">Proceed to buy via WhatsApp</span></div>
+                        <p class="text-xs text-gray-400">Chat directly with our sales team for instant purchase</p>
+                    </a>
+                    <a href="https://ig.me/m/vipvu.bm" target="_blank" class="block p-4 rounded-xl bg-gradient-to-r from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 border border-[#fd1d1d]/50 hover:bg-white/5 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="instagram" class="text-[#fd1d1d]"></i><span class="font-bold text-white">Proceed to buy via Instagram</span></div>
+                        <p class="text-xs text-gray-400">DM us on Instagram to complete your purchase</p>
+                    </a>
+                     <a href="https://twitter.com/vipvubm" target="_blank" class="block p-4 rounded-xl bg-[#1DA1F2]/20 border border-[#1DA1F2]/50 hover:bg-[#1DA1F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="twitter" class="text-[#1DA1F2]"></i><span class="font-bold text-white">Proceed to buy via Twitter</span></div>
+                        <p class="text-xs text-gray-400">Reach out on X (Twitter) for purchase inquiries</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#08020a] pt-20 pb-10 border-t border-[#ff0055]/30 relative overflow-hidden mt-auto">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-[#ff0055] to-transparent shadow-[0_0_15px_rgba(255,0,85,1)]"></div>
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10">
+            <!-- (Footer content same as other pages) -->
+             <div class="flex flex-col items-center justify-center mb-16">
+                <h3 class="text-3xl font-black text-white mb-6 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Customer Reviews</h3>
+                <a href="https://trustpilot.com/review/YOUR_WEBSITE.com" target="_blank" class="bg-[#12051a] border border-[#ff0055]/30 shadow-[0_0_30px_rgba(255,0,85,0.15)] rounded-2xl p-6 flex flex-col items-center max-w-sm w-full hover:scale-105 transition-transform group cursor-pointer">
+                    <div class="flex items-center gap-2 text-sm font-bold text-gray-300 mb-3 tracking-wide">
+                        <i data-lucide="star" class="w-5 h-5 text-[#00b67a] fill-current drop-shadow-[0_0_5px_rgba(0,182,122,0.6)]"></i> Trustpilot
+                    </div>
+                    <div class="flex gap-1 mb-2">
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                    </div>
+                    <div class="text-lg font-bold text-white tracking-wide">
+                        TrustScore <span class="text-[#00b67a] font-black drop-shadow-[0_0_5px_rgba(0,182,122,0.4)]">4.7</span>
+                    </div>
+                    <div class="text-sm text-gray-500 font-medium group-hover:text-white transition-colors underline decoration-transparent group-hover:decoration-white/50 underline-offset-4 mt-1">51 reviews</div>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                <div>
+                    <a href="index.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
+                        <div class="w-8 h-8 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all">🦁</div>
+                        <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">Imvu Market</span>
+                    </a>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
+                        Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of permanent BM triggers and exclusive rooms.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://discord.com" target="_blank" class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <div class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Quick Links</h4>
+                    <ul class="space-y-4 text-sm font-medium text-gray-400">
+                        <li><a href="triggers.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">IMVU Triggers</a></li>
+                        <li><a href="rooms.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">IMVU Rooms</a></li>
+                        <li><a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Bundles</a></li>
+                        <li><a href="#" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">New Arrivals</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Support</h4>
+                    <ul class="space-y-4 text-sm font-medium text-gray-400">
+                        <li><a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Track Order</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Product Warranty</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Help Center</a></li>
+                        <li><a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_5px_rgba(255,0,85,0.8)] transition-all">Email Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Stay Updated</h4>
+                     <p class="text-gray-400 text-sm mb-4 font-medium">Get the latest deals and exclusive offers delivered to your inbox.</p>
+                     <div class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="w-full px-4 py-3 bg-[#12051a] border border-[#ff0055]/30 rounded-xl text-sm text-white focus:outline-none focus:border-[#ff0055] focus:shadow-[0_0_15px_rgba(255,0,85,0.3)] transition-all placeholder-gray-600 font-medium" />
+                        <button class="px-5 py-3 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#d40047] text-white shadow-[0_0_15px_rgba(255,0,85,0.4)] hover:shadow-[0_0_20px_rgba(255,0,85,0.6)] hover:-translate-y-0.5 transition-all font-black uppercase tracking-wide border border-white/10">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-4 text-center text-sm text-gray-500 font-medium pt-8 border-t border-[#ff0055]/20">
+                 <p class="max-w-4xl text-xs text-gray-600">This site is not part of the IMVU™ website or IMVU™. Additionally, this site is NOT endorsed by IMVU™ in any way. IMVU™ is a trademark of IMVU™.</p>
+                 <div class="flex items-center justify-center gap-6 text-gray-400 font-bold">
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Return Policy</a>
+                 </div>
+                 <div class="text-gray-600 font-bold mt-2">© 2026 Imvu Market. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase Logic -->
+    <script>
+        // --- 1. Supabase Initialization ---
+        const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
+        
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        const authContainer = document.getElementById('auth-container');
+        const userProfileBtn = document.getElementById('user-profile-btn');
+        const cartBadge = document.getElementById('cart-badge');
+
+        let currentModalProductId = null;
+        let currentReviewRating = 5;
+
+        // --- 2. Check Auth State on Page Load ---
+        async function checkAuthState() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            updateNavbarState(session);
+            
+            // Listen for changes (e.g. sign in on another tab)
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                updateNavbarState(session);
+            });
+        }
+
+        // --- 3. Update Navbar UI based on Session ---
+        function updateNavbarState(session) {
+            if (session) {
+                const user = session.user;
+                const avatarUrl = user.user_metadata.avatar_url;
+                const userName = user.user_metadata.full_name || 'User';
+
+                if(authContainer) {
+                    authContainer.innerHTML = '';
+                    authContainer.style.display = 'none';
+                }
+
+                if (userProfileBtn) {
+                    const displayImage = avatarUrl ? 
+                        `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
+                        `<div class="w-8 h-8 rounded-full bg-[#ff0055] flex items-center justify-center text-white font-bold border border-[#ff0055]">${userName[0].toUpperCase()}</div>`;
+                    
+                    userProfileBtn.innerHTML = `
+                        <div class="relative group" id="profile-trigger-container">
+                            <div onclick="toggleProfileDropdown(event)">${displayImage}</div>
+                            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full pt-4 w-64 z-50 fade-in-scale">
+                                <div class="bg-[#12051a] border border-[#ff0055]/30 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
+                                    <div class="p-4 border-b border-[#ff0055]/20 bg-[#ff0055]/5">
+                                        <p class="text-white font-bold truncate">${userName}</p>
+                                        <p class="text-xs text-gray-400 truncate">${user.email || 'Discord User'}</p>
+                                    </div>
+                                    <div class="p-2">
+                                        <button onclick="handleSignOut()" class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#ff0055]/10 rounded-lg transition-colors flex items-center gap-2">
+                                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                if(authContainer) {
+                    authContainer.style.display = 'block';
+                    authContainer.innerHTML = `
+                       <a href="login.html" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                    `;
+                }
+                
+                if(userProfileBtn) {
+                     userProfileBtn.innerHTML = `
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                     `;
+                }
+            }
+            lucide.createIcons();
+        }
+
+        // --- Toggle Dropdown Helper ---
+        window.toggleProfileDropdown = function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('profile-dropdown-menu');
+            const container = document.getElementById('profile-trigger-container');
+            if (menu && !menu.classList.contains('hidden') && container && !container.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // --- 5. Handle Sign Out ---
+        window.handleSignOut = async function() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (!error) {
+                window.location.reload();
+            }
+        };
+
+        // --- 6. Initialize ---
+        window.onload = () => {
+            renderCurrencySidebar();
+            renderProducts(); 
+            lucide.createIcons();
+            checkAuthState(); 
+            updateCartCount();
+        };
+
+        // Sidebar Logic
+        let rates = {
+            USD: { symbol: '$', rate: 1 },
+            GBP: { symbol: '£', rate: 0.79 },
+            EUR: { symbol: '€', rate: 0.92 },
+            INR: { symbol: '₹', rate: 83.12 },
+            VCOIN: { symbol: 'V', rate: 250 }
+        };
+        let currentCurrency = 'USD';
+
+        function renderCurrencySidebar() {
+             const sidebar = document.getElementById('currency-sidebar');
+             if(sidebar) {
+                let html = '';
+                for (const [code, data] of Object.entries(rates)) {
+                    const isActive = currentCurrency === code;
+                    const baseClass = "px-3 py-2 text-xs font-bold rounded-lg transition-all mb-1 block w-full text-left";
+                    const activeClass = isActive ? "bg-[#ff0055] text-white shadow-[0_0_15px_rgba(255,0,85,0.6)]" : "text-gray-400 hover:text-[#ff0055]";
+                    html += `<button onclick="setGlobalCurrency('${code}')" class="${baseClass} ${activeClass}">${code} ${data.symbol}</button>`;
+                }
+                sidebar.innerHTML = html;
+             }
+        }
+        function setGlobalCurrency(code) {
+            currentCurrency = code;
+            renderCurrencySidebar();
+            renderProducts();
+        }
+
+        // --- DATA (20 Triggers) ---
+        const productsData = [
+            {
+                id: "trig1", title: "Venom Foreskin", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "80.00", originalPrice: "95.00", rating: "4.9", image: "https://files.catbox.moe/wqto72.png", badges: [{ text: "Best Seller", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig2", title: "Realistic BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "85.00", originalPrice: "100.00", rating: "4.8", image: "https://files.catbox.moe/z2mf9t.jpg", badges: [{ text: "New", color: "bg-purple-500" }]
+            },
+            {
+                id: "trig3", title: "Red Veiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "55.00", originalPrice: "70.00", rating: "5.0", image: "https://files.catbox.moe/zx0o17.jpg", badges: [{ text: "Hot", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig4", title: "Slingshot", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "110.00", rating: "4.7", image: "https://files.catbox.moe/k23mpi.jpg", badges: []
+            },
+            {
+                id: "trig5", title: "Wet BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "105.00", rating: "4.8", image: "https://files.catbox.moe/w4wh6a.jpg", badges: []
+            },
+            {
+                id: "trig6", title: "Wetty/Shiny Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "80.00", rating: "4.9", image: "https://files.catbox.moe/eh610k.jpg", badges: [{ text: "Popular", color: "bg-blue-500" }]
+            },
+            {
+                id: "trig7", title: "Wetty/Shiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "70.00", originalPrice: "85.00", rating: "5.0", image: "https://files.catbox.moe/tev97d.jpg", badges: [{ text: "Exclusive", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig8", title: "White FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "65.00", rating: "4.8", image: "https://files.catbox.moe/po2zcw.jpg", badges: []
+            },
+            {
+                id: "trig9", title: "Black FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "65.00", rating: "4.8", image: "https://files.catbox.moe/ytstm9.jpg", badges: []
+            },
+            {
+                id: "trig10", title: "Choco Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "90.00", rating: "4.7", image: "https://files.catbox.moe/vzza1c.jpg", badges: []
+            },
+            {
+                id: "trig11", title: "Brownie Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "60.00", originalPrice: "75.00", rating: "4.7", image: "https://files.catbox.moe/cosf6r.jpg", badges: []
+            },
+            {
+                id: "trig12", title: "Choco Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "80.00", rating: "4.9", image: "https://files.catbox.moe/ds2m4v.jpg", badges: []
+            },
+            {
+                id: "trig13", title: "Cummy King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "65.00", rating: "5.0", image: "https://files.catbox.moe/ooqowb.jpg", badges: [{ text: "Top Rated", color: "bg-green-500" }]
+            },
+            {
+                id: "trig14", title: "King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "65.00", rating: "4.6", image: "https://files.catbox.moe/3q8tzc.jpg", badges: []
+            },
+            {
+                id: "trig15", title: "Cummy Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "55.00", originalPrice: "70.00", rating: "5.0", image: "https://files.catbox.moe/8ydx6l.jpg", badges: [{ text: "Must Have", color: "bg-[#ff0055]" }]
+            },
+            // Fillers for 16-20 (Coming Soon)
+            {
+                id: "trig16", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig17", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig18", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig19", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig20", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            }
+        ];
+
+        // --- RENDER PRODUCTS ---
+        async function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if (!grid) return; 
+            
+            const { symbol, rate } = rates[currentCurrency];
+
+            // Helper to build HTML
+            const buildCard = (product, avgRating) => {
+                 const isComingSoon = product.title === "Coming Soon";
+                 const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
+                const convertedOriginal = currentCurrency === 'VCOIN' ? Math.round(product.originalPrice * rate).toLocaleString() : (product.originalPrice * rate).toFixed(2);
+                const badgesHtml = product.badges.map(badge => `<span class="${badge.color} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_10px_rgba(255,0,85,0.5)] flex items-center gap-1 border border-white/20">${badge.text}</span>`).join('');
+                
+                if (isComingSoon) {
+                    return `
+                    <div class="bg-[#12051a]/50 rounded-3xl overflow-hidden shadow-none border border-gray-800 flex flex-col grayscale opacity-75 cursor-not-allowed">
+                        <div class="relative aspect-[16/9] bg-[#050106] flex items-center justify-center border-b border-[#ff0055]/10">
+                            <span class="text-[#ff0055] font-black text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,85,0.5)] text-center px-4 animate-pulse">Coming Soon</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow relative">
+                            <h3 class="text-xl font-black text-gray-400 mb-1">Coming Soon</h3>
+                             <p class="text-sm text-gray-600 mb-5">Stay tuned for updates</p>
+                             <div class="flex items-baseline gap-2 mb-6 p-3 rounded-xl">
+                                 <span class="text-3xl font-black text-gray-700">${symbol}0</span>
+                             </div>
+                             <!-- No Buttons -->
+                             <div class="mt-auto pt-4 border-t border-gray-800/50">
+                                <span class="text-xs text-gray-600 font-mono uppercase">Unavailable</span>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                return `
+                <div class="bg-[#12051a] rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-[#ff0055]/20 hover:border-[#ff0055] hover:shadow-[0_0_30px_rgba(255,0,85,0.3)] transition-all duration-300 group flex flex-col">
+                    <div class="relative aspect-[16/9] overflow-hidden bg-[#08020a]">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
+                        <div class="absolute top-3 left-3 flex flex-col gap-2">${badgesHtml}</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow relative">
+                        <div class="flex justify-between items-center mb-3 mt-2">
+                            <span class="text-xs font-bold text-[#ff0055] uppercase tracking-widest bg-[#ff0055]/10 border border-[#ff0055]/20 px-2.5 py-1 rounded-md">${product.category}</span>
+                            <div class="flex items-center gap-1 text-white font-bold text-sm bg-[#08020a] px-2 py-1 rounded-md border border-gray-800">
+                                <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i> 
+                                <span id="grid-rating-${product.id}">${avgRating || product.rating}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-white mb-1 leading-tight line-clamp-1">${product.title}</h3>
+                        <p class="text-sm text-gray-400 mb-5 line-clamp-1 flex-grow font-medium">${product.subtitle}</p>
+                        <div class="flex items-baseline gap-2 mb-6 bg-[#08020a] p-3 rounded-xl border border-[#ff0055]/10">
+                            <span class="text-3xl font-black text-[#ff0055]">${symbol}${convertedPrice}</span>
+                            <span class="text-sm font-bold text-gray-500 line-through">${symbol}${convertedOriginal}</span>
+                        </div>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <button onclick="openBuyModal('${product.title}')" class="flex-grow py-3.5 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#d40047] text-white font-black text-center shadow-[0_0_15px_rgba(255,0,85,0.4)] hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all uppercase tracking-wide border border-white/10">Buy Now</button>
+                            <button onclick="addToCart('${product.id}')" class="p-3.5 rounded-xl border-2 border-[#ff0055]/30 text-gray-300 hover:border-[#ff0055] hover:text-[#ff0055] hover:bg-[#ff0055]/10 transition-all"><i data-lucide="shopping-cart" class="w-5 h-5"></i></button>
+                            <button onclick="openModal('${product.id}')" class="p-3.5 rounded-xl border-2 border-[#ff0055]/30 text-gray-300 hover:border-[#ff0055] hover:text-[#ff0055] hover:bg-[#ff0055]/10 transition-all"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            };
+
+            grid.innerHTML = productsData.map(p => buildCard(p, p.rating)).join('');
+            lucide.createIcons();
+
+            // 2. Asynchronously update ratings
+            updateGridRatings();
+        }
+
+        async function updateGridRatings() {
+            // Fetch all reviews
+            const { data, error } = await supabaseClient
+                .from('reviews')
+                .select('product_id, rating');
+
+            if (error || !data) return;
+
+            // Calculate averages
+            const ratingsMap = {};
+            data.forEach(r => {
+                if (!ratingsMap[r.product_id]) ratingsMap[r.product_id] = { sum: 0, count: 0 };
+                ratingsMap[r.product_id].sum += r.rating;
+                ratingsMap[r.product_id].count++;
+            });
+
+            // Update DOM
+            Object.keys(ratingsMap).forEach(pid => {
+                const avg = (ratingsMap[pid].sum / ratingsMap[pid].count).toFixed(1);
+                const el = document.getElementById(`grid-rating-${pid}`);
+                if (el) el.innerText = avg;
+            });
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert("Added to cart!");
+        }
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const badge = document.getElementById('cart-badge');
+            if(badge) badge.innerText = cart.length;
+        }
+
+        // --- PRODUCT DETAIL MODAL ---
+        function openModal(productId) {
+            currentModalProductId = productId; // Store current product ID
+            const product = productsData.find(p => p.id === productId);
+            if(!product) return;
+            const modal = document.getElementById('product-modal');
+            const { symbol, rate } = rates[currentCurrency];
+            const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
+            
+            document.getElementById('modal-img').src = product.image;
+            document.getElementById('modal-title').innerText = product.title;
+            document.getElementById('modal-subtitle').innerText = product.subtitle;
+            document.getElementById('modal-price').innerText = `${symbol}${convertedPrice}`;
+            document.getElementById('modal-rating').innerText = "New"; 
+            
+            // Dynamic Description Logic
+            let skinText = "ANY SKIN (adapts your avatar skin tone automatically)";
+            if (product.title === "Black FatBull") skinText = "Works well for Black skin Avatars";
+            if (product.title === "White FatBull") skinText = "Works well for White skin avatars";
+
+            const description = `
+                <strong class="text-white">NEW VARIANT 2025 , TRIGGER AND ACTIONS</strong><br><br>
+                Payment : PayPal, CashApp, Chime, Binance Any UPI (For Indians)<br>
+                Description: Works on PC / Mobile, all platforms<br>
+                Skin: ${skinText}<br>
+                Actions + Cum + Pee Order Now.
+            `;
+            document.getElementById('modal-desc-text').innerHTML = description;
+
+            document.getElementById('modal-buy-now').onclick = () => { closeModal(); openBuyModal(product.title); };
+            document.getElementById('modal-add-cart').onclick = () => addToCart(product.id);
+
+            loadReviews(productId); 
+            modal.classList.remove('hidden');
+        }
+        function closeModal() { document.getElementById('product-modal').classList.add('hidden'); }
+
+        // --- BUY OPTIONS MODAL ---
+        function openBuyModal(productTitle) {
+            const modal = document.getElementById('buy-modal');
+            modal.classList.remove('hidden');
+        }
+        function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
+
+        // --- SUPABASE REVIEWS ---
+        async function loadReviews(productId) {
+            const list = document.getElementById('reviews-list');
+            if (!list) return;
+            list.innerHTML = '';
+            
+            // Fetch from Supabase
+            try {
+                const { data, error } = await supabaseClient
+                    .from('reviews')
+                    .select('*')
+                    .eq('product_id', productId)
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error("Error fetching reviews:", error);
+                } else if (data && data.length > 0) {
+                    let totalRating = 0;
+                    data.forEach(r => {
+                        addReviewToDom(r.user_name, r.review_text, r.rating);
+                        totalRating += (r.rating || 5);
+                    });
+                    
+                    // Update average rating
+                    const avg = (totalRating / data.length).toFixed(1);
+                    document.getElementById('modal-rating').innerText = avg;
+                    
+                    // Also update grid rating if possible
+                    const gridRatingEl = document.getElementById(`grid-rating-${productId}`);
+                    if(gridRatingEl) gridRatingEl.innerText = avg;
+
+                } else {
+                     document.getElementById('modal-rating').innerText = "New";
+                }
+            } catch (err) {
+                console.error("Supabase request failed:", err);
+            }
+            lucide.createIcons();
+        }
+
+        function addReviewToDom(name, text, rating = 5) {
+            const list = document.getElementById('reviews-list');
+            
+            // Generate Stars HTML
+            let starsHtml = '';
+            for(let i=0; i<5; i++) {
+                if(i < rating) starsHtml += '<i data-lucide="star" class="w-3 h-3 fill-current"></i>';
+                else starsHtml += '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>';
+            }
+
+            const html = `
+                <div class="bg-white/5 p-4 rounded-xl fade-in-scale mb-4">
+                     <div class="flex items-center gap-2 mb-2">
+                         <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px] font-bold">${name ? name[0].toUpperCase() : 'G'}</div>
+                         <span class="text-sm font-bold text-white">${name}</span>
+                         <div class="flex text-[#ff0055]">${starsHtml}</div>
+                     </div>
+                     <p class="text-xs text-gray-400">${text}</p>
+                 </div>
+            `;
+            list.insertAdjacentHTML('afterbegin', html);
+        }
+        
+        function setReviewRating(rating) {
+            currentReviewRating = rating;
+            // Update visual state of stars
+            const buttons = document.querySelectorAll('.star-btn');
+            buttons.forEach((btn, index) => {
+                if(index < rating) {
+                    btn.classList.remove('text-gray-600');
+                    btn.classList.add('text-[#ff0055]');
+                } else {
+                    btn.classList.add('text-gray-600');
+                    btn.classList.remove('text-[#ff0055]');
+                }
+            });
+        }
+
+        async function submitReview() {
+            const nameInput = document.getElementById('review-name');
+            const textInput = document.getElementById('review-text');
+            
+            if(!textInput.value) return;
+
+            // Get logged in user name or input name or guest
+            let userName = nameInput.value || "Guest User";
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && !nameInput.value) {
+                userName = session.user.user_metadata.full_name || session.user.email;
+            }
+
+            const reviewText = textInput.value;
+
+            // Add to DOM immediately for feedback
+            addReviewToDom(userName, reviewText, currentReviewRating);
+
+            // Save to Supabase
+            if (currentModalProductId) {
+                const { error } = await supabaseClient
+                    .from('reviews')
+                    .insert([
+                        { 
+                            product_id: currentModalProductId, 
+                            user_name: userName, 
+                            review_text: reviewText,
+                            rating: currentReviewRating
+                        }
+                    ]);
+
+                if (error) {
+                    console.error("Error saving review:", error);
+                    alert("Failed to save review online. Please try again.");
+                } else {
+                    // Update grid rating after submission
+                    loadReviews(currentModalProductId);
+                }
+            }
+
+            textInput.value = '';
+            nameInput.value = '';
+            // Reset stars visual
+            setReviewRating(5); 
+            lucide.createIcons();
+        }
+
+    </script>
+</body>
+</html>-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Stay Updated</h4>
+                     <p class="text-gray-400 text-sm mb-4 font-medium">Get the latest deals and exclusive offers delivered to your inbox.</p>
+                     <div class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="w-full px-4 py-3 bg-[#12051a] border border-[#ff0055]/30 rounded-xl text-sm text-white focus:outline-none focus:border-[#ff0055] focus:shadow-[0_0_15px_rgba(255,0,85,0.3)] transition-all placeholder-gray-600 font-medium" />
+                        <button class="px-5 py-3 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#d40047] text-white shadow-[0_0_15px_rgba(255,0,85,0.4)] hover:shadow-[0_0_20px_rgba(255,0,85,0.6)] hover:-translate-y-0.5 transition-all font-black uppercase tracking-wide border border-white/10">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-4 text-center text-sm text-gray-500 font-medium pt-8 border-t border-[#ff0055]/20">
+                 <p class="max-w-4xl text-xs text-gray-600">This site is not part of the IMVU™ website or IMVU™. Additionally, this site is NOT endorsed by IMVU™ in any way. IMVU™ is a trademark of IMVU™.</p>
+                 <div class="flex items-center justify-center gap-6 text-gray-400 font-bold">
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-[#ff0055] transition-colors">Return Policy</a>
+                 </div>
+                 <div class="text-gray-600 font-bold mt-2">© 2026 Imvu Market. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase Logic -->
+    <script>
+        // --- 1. Supabase Initialization ---
+        const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
+        
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        const authContainer = document.getElementById('auth-container');
+        const userProfileBtn = document.getElementById('user-profile-btn');
+        const cartBadge = document.getElementById('cart-badge');
+
+        let currentModalProductId = null;
+        let currentReviewRating = 5;
+
+        // --- 2. Check Auth State on Page Load ---
+        async function checkAuthState() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            updateNavbarState(session);
+            
+            // Listen for changes (e.g. sign in on another tab)
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                updateNavbarState(session);
+            });
+        }
+
+        // --- 3. Update Navbar UI based on Session ---
+        function updateNavbarState(session) {
+            if (session) {
+                const user = session.user;
+                const avatarUrl = user.user_metadata.avatar_url;
+                const userName = user.user_metadata.full_name || 'User';
+
+                if(authContainer) {
+                    authContainer.innerHTML = '';
+                    authContainer.style.display = 'none';
+                }
+
+                if (userProfileBtn) {
+                    const displayImage = avatarUrl ? 
+                        `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
+                        `<div class="w-8 h-8 rounded-full bg-[#ff0055] flex items-center justify-center text-white font-bold border border-[#ff0055]">${userName[0].toUpperCase()}</div>`;
+                    
+                    userProfileBtn.innerHTML = `
+                        <div class="relative group" id="profile-trigger-container">
+                            <div onclick="toggleProfileDropdown(event)">${displayImage}</div>
+                            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full pt-4 w-64 z-50 fade-in-scale">
+                                <div class="bg-[#12051a] border border-[#ff0055]/30 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
+                                    <div class="p-4 border-b border-[#ff0055]/20 bg-[#ff0055]/5">
+                                        <p class="text-white font-bold truncate">${userName}</p>
+                                        <p class="text-xs text-gray-400 truncate">${user.email || 'Discord User'}</p>
+                                    </div>
+                                    <div class="p-2">
+                                        <button onclick="handleSignOut()" class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#ff0055]/10 rounded-lg transition-colors flex items-center gap-2">
+                                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                if(authContainer) {
+                    authContainer.style.display = 'block';
+                    authContainer.innerHTML = `
+                       <a href="login.html" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                    `;
+                }
+                
+                if(userProfileBtn) {
+                     userProfileBtn.innerHTML = `
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                     `;
+                }
+            }
+            lucide.createIcons();
+        }
+
+        // --- Toggle Dropdown Helper ---
+        window.toggleProfileDropdown = function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('profile-dropdown-menu');
+            const container = document.getElementById('profile-trigger-container');
+            if (menu && !menu.classList.contains('hidden') && container && !container.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // --- 5. Handle Sign Out ---
+        window.handleSignOut = async function() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (!error) {
+                window.location.reload();
+            }
+        };
+
+        // --- 6. Initialize ---
+        window.onload = () => {
+            renderCurrencySidebar();
+            renderProducts(); 
+            lucide.createIcons();
+            checkAuthState(); 
+            updateCartCount();
+        };
+
+        // Sidebar Logic
+        let rates = {
+            USD: { symbol: '$', rate: 1 },
+            GBP: { symbol: '£', rate: 0.79 },
+            EUR: { symbol: '€', rate: 0.92 },
+            INR: { symbol: '₹', rate: 83.12 },
+            VCOIN: { symbol: 'V', rate: 250 }
+        };
+        let currentCurrency = 'USD';
+
+        function renderCurrencySidebar() {
+             const sidebar = document.getElementById('currency-sidebar');
+             if(sidebar) {
+                let html = '';
+                for (const [code, data] of Object.entries(rates)) {
+                    const isActive = currentCurrency === code;
+                    const baseClass = "px-3 py-2 text-xs font-bold rounded-lg transition-all mb-1 block w-full text-left";
+                    const activeClass = isActive ? "bg-[#ff0055] text-white shadow-[0_0_15px_rgba(255,0,85,0.6)]" : "text-gray-400 hover:text-[#ff0055]";
+                    html += `<button onclick="setGlobalCurrency('${code}')" class="${baseClass} ${activeClass}">${code} ${data.symbol}</button>`;
+                }
+                sidebar.innerHTML = html;
+             }
+        }
+        function setGlobalCurrency(code) {
+            currentCurrency = code;
+            renderCurrencySidebar();
+            renderProducts();
+        }
+
+        // --- DATA (20 Triggers) ---
+        const productsData = [
+            {
+                id: "trig1", title: "Venom Foreskin", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "24.99", originalPrice: "40.00", rating: "4.9", image: "https://files.catbox.moe/wqto72.png", badges: [{ text: "Best Seller", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig2", title: "Realistic BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "22.99", originalPrice: "35.00", rating: "4.8", image: "https://files.catbox.moe/z2mf9t.jpg", badges: [{ text: "New", color: "bg-purple-500" }]
+            },
+            {
+                id: "trig3", title: "Red Veiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "26.99", originalPrice: "45.00", rating: "5.0", image: "https://files.catbox.moe/zx0o17.jpg", badges: [{ text: "Hot", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig4", title: "Slingshot", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "19.99", originalPrice: "30.00", rating: "4.7", image: "https://files.catbox.moe/k23mpi.jpg", badges: []
+            },
+            {
+                id: "trig5", title: "Wet BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "21.99", originalPrice: "32.00", rating: "4.8", image: "https://files.catbox.moe/w4wh6a.jpg", badges: []
+            },
+            {
+                id: "trig6", title: "Wetty/Shiny Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "28.99", originalPrice: "40.00", rating: "4.9", image: "https://files.catbox.moe/eh610k.jpg", badges: [{ text: "Popular", color: "bg-blue-500" }]
+            },
+            {
+                id: "trig7", title: "Wetty/Shiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "29.99", originalPrice: "42.00", rating: "5.0", image: "https://files.catbox.moe/tev97d.jpg", badges: [{ text: "Exclusive", color: "bg-[#ff0055]" }]
+            },
+            {
+                id: "trig8", title: "White FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "25.99", originalPrice: "38.00", rating: "4.8", image: "https://files.catbox.moe/po2zcw.jpg", badges: []
+            },
+            {
+                id: "trig9", title: "Black FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "25.99", originalPrice: "38.00", rating: "4.8", image: "https://files.catbox.moe/ytstm9.jpg", badges: []
+            },
+            {
+                id: "trig10", title: "Choco Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "23.99", originalPrice: "34.00", rating: "4.7", image: "https://files.catbox.moe/vzza1c.jpg", badges: []
+            },
+            {
+                id: "trig11", title: "Brownie Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "23.99", originalPrice: "34.00", rating: "4.7", image: "https://files.catbox.moe/cosf6r.jpg", badges: []
+            },
+            {
+                id: "trig12", title: "Choco Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "27.99", originalPrice: "39.00", rating: "4.9", image: "https://files.catbox.moe/ds2m4v.jpg", badges: []
+            },
+            {
+                id: "trig13", title: "Cummy King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "30.99", originalPrice: "45.00", rating: "5.0", image: "https://files.catbox.moe/ooqowb.jpg", badges: [{ text: "Top Rated", color: "bg-green-500" }]
+            },
+            {
+                id: "trig14", title: "King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "20.99", originalPrice: "30.00", rating: "4.6", image: "https://files.catbox.moe/3q8tzc.jpg", badges: []
+            },
+            {
+                id: "trig15", title: "Cummy Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "31.99", originalPrice: "46.00", rating: "5.0", image: "https://files.catbox.moe/8ydx6l.jpg", badges: [{ text: "Must Have", color: "bg-[#ff0055]" }]
+            },
+            // Fillers for 16-20 (Coming Soon)
+            {
+                id: "trig16", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig17", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig18", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig19", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            },
+            {
+                id: "trig20", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
+            }
+        ];
+
+        // --- RENDER PRODUCTS ---
+        async function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if (!grid) return; 
+            
+            const { symbol, rate } = rates[currentCurrency];
+
+            // Helper to build HTML
+            const buildCard = (product, avgRating) => {
+                 const isComingSoon = product.title === "Coming Soon";
+                 const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
+                const convertedOriginal = currentCurrency === 'VCOIN' ? Math.round(product.originalPrice * rate).toLocaleString() : (product.originalPrice * rate).toFixed(2);
+                const badgesHtml = product.badges.map(badge => `<span class="${badge.color} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_10px_rgba(255,0,85,0.5)] flex items-center gap-1 border border-white/20">${badge.text}</span>`).join('');
+                
+                if (isComingSoon) {
+                    return `
+                    <div class="bg-[#12051a]/50 rounded-3xl overflow-hidden shadow-none border border-gray-800 flex flex-col grayscale opacity-75 cursor-not-allowed">
+                        <div class="relative aspect-[16/9] bg-[#050106] flex items-center justify-center border-b border-[#ff0055]/10">
+                            <span class="text-[#ff0055] font-black text-xl uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,0,85,0.5)] text-center px-4 animate-pulse">Coming Soon</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow relative">
+                            <h3 class="text-xl font-black text-gray-400 mb-1">Coming Soon</h3>
+                             <p class="text-sm text-gray-600 mb-5">Stay tuned for updates</p>
+                             <div class="flex items-baseline gap-2 mb-6 p-3 rounded-xl">
+                                 <span class="text-3xl font-black text-gray-700">${symbol}0</span>
+                             </div>
+                             <!-- No Buttons -->
+                             <div class="mt-auto pt-4 border-t border-gray-800/50">
+                                <span class="text-xs text-gray-600 font-mono uppercase">Unavailable</span>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                return `
+                <div class="bg-[#12051a] rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-[#ff0055]/20 hover:border-[#ff0055] hover:shadow-[0_0_30px_rgba(255,0,85,0.3)] transition-all duration-300 group flex flex-col">
+                    <div class="relative aspect-[16/9] overflow-hidden bg-[#08020a]">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
+                        <div class="absolute top-3 left-3 flex flex-col gap-2">${badgesHtml}</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow relative">
+                        <div class="flex justify-between items-center mb-3 mt-2">
+                            <span class="text-xs font-bold text-[#ff0055] uppercase tracking-widest bg-[#ff0055]/10 border border-[#ff0055]/20 px-2.5 py-1 rounded-md">${product.category}</span>
+                            <div class="flex items-center gap-1 text-white font-bold text-sm bg-[#08020a] px-2 py-1 rounded-md border border-gray-800">
+                                <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i> 
+                                <span id="grid-rating-${product.id}">${avgRating || product.rating}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-white mb-1 leading-tight line-clamp-1">${product.title}</h3>
+                        <p class="text-sm text-gray-400 mb-5 line-clamp-1 flex-grow font-medium">${product.subtitle}</p>
+                        <div class="flex items-baseline gap-2 mb-6 bg-[#08020a] p-3 rounded-xl border border-[#ff0055]/10">
+                            <span class="text-3xl font-black text-[#ff0055]">${symbol}${convertedPrice}</span>
+                            <span class="text-sm font-bold text-gray-500 line-through">${symbol}${convertedOriginal}</span>
+                        </div>
+                        <div class="flex items-center gap-2 mt-auto">
+                            <button onclick="openBuyModal('${product.title}')" class="flex-grow py-3.5 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#d40047] text-white font-black text-center shadow-[0_0_15px_rgba(255,0,85,0.4)] hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all uppercase tracking-wide border border-white/10">Buy Now</button>
+                            <button onclick="addToCart('${product.id}')" class="p-3.5 rounded-xl border-2 border-[#ff0055]/30 text-gray-300 hover:border-[#ff0055] hover:text-[#ff0055] hover:bg-[#ff0055]/10 transition-all"><i data-lucide="shopping-cart" class="w-5 h-5"></i></button>
+                            <button onclick="openModal('${product.id}')" class="p-3.5 rounded-xl border-2 border-[#ff0055]/30 text-gray-300 hover:border-[#ff0055] hover:text-[#ff0055] hover:bg-[#ff0055]/10 transition-all"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            };
+
+            grid.innerHTML = productsData.map(p => buildCard(p, p.rating)).join('');
+            lucide.createIcons();
+
+            // 2. Asynchronously update ratings
+            updateGridRatings();
+        }
+
+        async function updateGridRatings() {
+            // Fetch all reviews
+            const { data, error } = await supabaseClient
+                .from('reviews')
+                .select('product_id, rating');
+
+            if (error || !data) return;
+
+            // Calculate averages
+            const ratingsMap = {};
+            data.forEach(r => {
+                if (!ratingsMap[r.product_id]) ratingsMap[r.product_id] = { sum: 0, count: 0 };
+                ratingsMap[r.product_id].sum += r.rating;
+                ratingsMap[r.product_id].count++;
+            });
+
+            // Update DOM
+            Object.keys(ratingsMap).forEach(pid => {
+                const avg = (ratingsMap[pid].sum / ratingsMap[pid].count).toFixed(1);
+                const el = document.getElementById(`grid-rating-${pid}`);
+                if (el) el.innerText = avg;
+            });
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert("Added to cart!");
+        }
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const badge = document.getElementById('cart-badge');
+            if(badge) badge.innerText = cart.length;
+        }
+
+        // --- PRODUCT DETAIL MODAL ---
+        function openModal(productId) {
+            currentModalProductId = productId; // Store current product ID
+            const product = productsData.find(p => p.id === productId);
+            if(!product) return;
+            const modal = document.getElementById('product-modal');
+            const { symbol, rate } = rates[currentCurrency];
+            const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
+            
+            document.getElementById('modal-img').src = product.image;
+            document.getElementById('modal-title').innerText = product.title;
+            document.getElementById('modal-subtitle').innerText = product.subtitle;
+            document.getElementById('modal-price').innerText = `${symbol}${convertedPrice}`;
+            
+            // Initial static, then fetch
+            document.getElementById('modal-rating').innerText = product.rating;
+            
+            document.getElementById('modal-buy-now').onclick = () => { closeModal(); openBuyModal(product.title); };
+            document.getElementById('modal-add-cart').onclick = () => addToCart(product.id);
+
+            loadReviews(productId); // Load Reviews for this specific product
+            modal.classList.remove('hidden');
+        }
+        function closeModal() { document.getElementById('product-modal').classList.add('hidden'); }
+
+        // --- BUY OPTIONS MODAL ---
+        function openBuyModal(productTitle) {
+            const modal = document.getElementById('buy-modal');
+            modal.classList.remove('hidden');
+        }
+        function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
+
+        // --- SUPABASE REVIEWS ---
+        async function loadReviews(productId) {
+            const list = document.getElementById('reviews-list');
+            if (!list) return;
+            list.innerHTML = '';
+            
+            // Fetch from Supabase
+            try {
+                const { data, error } = await supabaseClient
+                    .from('reviews')
+                    .select('*')
+                    .eq('product_id', productId)
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error("Error fetching reviews:", error);
+                } else if (data && data.length > 0) {
+                    let totalRating = 0;
+                    data.forEach(r => {
+                        addReviewToDom(r.user_name, r.review_text, r.rating);
+                        totalRating += (r.rating || 5);
+                    });
+                    
+                    // Update average rating
+                    const avg = (totalRating / data.length).toFixed(1);
+                    document.getElementById('modal-rating').innerText = avg;
+                    
+                    // Also update grid rating if possible
+                    const gridRatingEl = document.getElementById(`grid-rating-${productId}`);
+                    if(gridRatingEl) gridRatingEl.innerText = avg;
+
+                } else {
+                     document.getElementById('modal-rating').innerText = "New";
+                }
+            } catch (err) {
+                console.error("Supabase request failed:", err);
+            }
+            lucide.createIcons();
+        }
+
+        function addReviewToDom(name, text, rating = 5) {
+            const list = document.getElementById('reviews-list');
+            
+            // Generate Stars HTML
+            let starsHtml = '';
+            for(let i=0; i<5; i++) {
+                if(i < rating) starsHtml += '<i data-lucide="star" class="w-3 h-3 fill-current"></i>';
+                else starsHtml += '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>';
+            }
+
+            const html = `
+                <div class="bg-white/5 p-4 rounded-xl fade-in-scale mb-4">
+                     <div class="flex items-center gap-2 mb-2">
+                         <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px] font-bold">${name ? name[0].toUpperCase() : 'G'}</div>
+                         <span class="text-sm font-bold text-white">${name}</span>
+                         <div class="flex text-[#ff0055]">${starsHtml}</div>
+                     </div>
+                     <p class="text-xs text-gray-400">${text}</p>
+                 </div>
+            `;
+            list.insertAdjacentHTML('afterbegin', html);
+        }
+        
+        function setReviewRating(rating) {
+            currentReviewRating = rating;
+            // Update visual state of stars
+            const buttons = document.querySelectorAll('.star-btn');
+            buttons.forEach((btn, index) => {
+                if(index < rating) {
+                    btn.classList.remove('text-gray-600');
+                    btn.classList.add('text-[#ff0055]');
+                } else {
+                    btn.classList.add('text-gray-600');
+                    btn.classList.remove('text-[#ff0055]');
+                }
+            });
+        }
+
+        async function submitReview() {
+            const nameInput = document.getElementById('review-name');
+            const textInput = document.getElementById('review-text');
+            
+            if(!textInput.value) return;
+
+            // Get logged in user name or input name or guest
+            let userName = nameInput.value || "Guest User";
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && !nameInput.value) {
+                userName = session.user.user_metadata.full_name || session.user.email;
+            }
+
+            const reviewText = textInput.value;
+
+            // Add to DOM immediately for feedback
+            addReviewToDom(userName, reviewText, currentReviewRating);
+
+            // Save to Supabase
+            if (currentModalProductId) {
+                const { error } = await supabaseClient
+                    .from('reviews')
+                    .insert([
+                        { 
+                            product_id: currentModalProductId, 
+                            user_name: userName, 
+                            review_text: reviewText,
+                            rating: currentReviewRating
+                        }
+                    ]);
+
+                if (error) {
+                    console.error("Error saving review:", error);
+                    alert("Failed to save review online. Please try again.");
+                } else {
+                    // Update grid rating after submission
+                    loadReviews(currentModalProductId);
+                }
+            }
+
+            textInput.value = '';
+            nameInput.value = '';
+            // Reset stars visual
+            setReviewRating(5); 
+            lucide.createIcons();
+        }
+
+    </script>
+</body>
+</html>

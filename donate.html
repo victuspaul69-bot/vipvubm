@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donate - VIP VU BM</title>
+    <title>Donate - Imvu Market</title>
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons (CDN) -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
@@ -21,6 +24,23 @@
             border-color: #ff0055 !important;
             box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(255, 0, 85, 0.1);
             transform: scale(1.05);
+        }
+
+        /* Dropdown Animation */
+        .dropdown-menu {
+            display: none;
+            transform-origin: top right;
+            animation: scaleIn 0.2s ease-out forwards;
+        }
+        
+        /* The .group class on the container controls the hover. */
+        .group:hover .dropdown-menu {
+            display: block;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -47,7 +67,7 @@
                 <div class="w-10 h-10 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold text-xl shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all">
                     🦁
                 </div>
-                <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">VIP VU BM</span>
+                <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">Imvu Market</span>
             </a>
 
             <!-- Desktop Links -->
@@ -79,7 +99,11 @@
                 <a href="about.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">About Us</a>
                 <a href="donate.html" class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all flex items-center gap-1">Donate <span class="text-[#ff0055] drop-shadow-[0_0_5px_rgba(255,0,85,0.8)]">❤️</span></a>
                 
-                <a href="login.html" class="ml-2 px-4 py-1.5 rounded-full border border-[#ff0055]/50 bg-[#ff0055]/10 text-[#ff0055] hover:bg-gradient-to-r hover:from-[#ff0055] hover:to-[#aa0038] hover:text-white hover:border-transparent hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                <!-- DYNAMIC AUTH SECTION (JS will populate this) -->
+                <div id="auth-container" class="ml-2 relative">
+                    <!-- Default Login Button (Visible by default, hidden by JS if logged in) -->
+                    <a href="login.html" id="nav-login-btn" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                </div>
             </div>
 
             <!-- Utilities -->
@@ -93,7 +117,14 @@
                     </a>
                     <div class="h-5 w-px bg-gray-700/50 mx-1"></div>
                     <i data-lucide="search" class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
-                    <a href="login.html"><i data-lucide="user" class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i></a>
+                    
+                    <!-- DYNAMIC USER ICON SECTION (Top Right) -->
+                    <div id="user-profile-btn" class="cursor-pointer relative">
+                         <!-- Content injected by JS -->
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                    </div>
                 </div>
                 <a href="cart.html" class="relative cursor-pointer group flex items-center gap-1">
                     <i data-lucide="shopping-cart" class="w-6 h-6 group-hover:text-[#ff0055] group-hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
@@ -133,7 +164,7 @@
                 </div>
                 
                 <h2 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                    Support <span class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">VIP VU BM</span>
+                    Support <span class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">Imvu Market</span>
                 </h2>
                 
                 <p class="text-gray-400 mb-10 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -231,11 +262,31 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-[#ff0055] to-transparent shadow-[0_0_15px_rgba(255,0,85,1)]"></div>
         <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10">
             
+            <div class="flex flex-col items-center justify-center mb-16">
+                <h3 class="text-3xl font-black text-white mb-6 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Customer Reviews</h3>
+                <a href="https://trustpilot.com/review/YOUR_WEBSITE.com" target="_blank" class="bg-[#12051a] border border-[#ff0055]/30 shadow-[0_0_30px_rgba(255,0,85,0.15)] rounded-2xl p-6 flex flex-col items-center max-w-sm w-full hover:scale-105 transition-transform group cursor-pointer">
+                    <div class="flex items-center gap-2 text-sm font-bold text-gray-300 mb-3 tracking-wide">
+                        <i data-lucide="star" class="w-5 h-5 text-[#00b67a] fill-current drop-shadow-[0_0_5px_rgba(0,182,122,0.6)]"></i> Trustpilot
+                    </div>
+                    <div class="flex gap-1 mb-2">
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="bg-[#00b67a] p-1 rounded-sm shadow-[0_0_8px_rgba(0,182,122,0.4)]"><i data-lucide="star" class="w-5 h-5 text-white fill-current"></i></div>
+                    </div>
+                    <div class="text-lg font-bold text-white tracking-wide">
+                        TrustScore <span class="text-[#00b67a] font-black drop-shadow-[0_0_5px_rgba(0,182,122,0.4)]">4.7</span>
+                    </div>
+                    <div class="text-sm text-gray-500 font-medium group-hover:text-white transition-colors underline decoration-transparent group-hover:decoration-white/50 underline-offset-4 mt-1">51 reviews</div>
+                </a>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
                 <div>
                     <a href="index.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
                         <div class="w-8 h-8 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all">🦁</div>
-                        <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">VIP VU BM</span>
+                        <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">Imvu Market</span>
                     </a>
                     <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
                         Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of permanent BM triggers and exclusive rooms.
@@ -244,6 +295,9 @@
                         <a href="https://discord.com/users/1293592753116024928" target="_blank" class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
                             <i data-lucide="message-circle" class="w-5 h-5"></i>
                         </a>
+                        <div class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -300,38 +354,142 @@
         </div>
     </footer>
 
-    <!-- Global Javascript (Only the essential logic needed for the sidebar and icons) -->
+    <!-- Supabase Logic -->
     <script>
-        let rates = {
-            USD: { symbol: '$', rate: 1 },
-            GBP: { symbol: '£', rate: 0.79 },
-            EUR: { symbol: '€', rate: 0.92 },
-            INR: { symbol: '₹', rate: 83.12 },
-            VCOIN: { symbol: 'V', rate: 250 }
-        };
+        // --- 1. Supabase Initialization ---
+        const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
+        
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-        let currentCurrency = 'USD';
+        const authContainer = document.getElementById('auth-container');
+        const userProfileBtn = document.getElementById('user-profile-btn');
 
-        function renderCurrencySidebar() {
-            const sidebar = document.getElementById('currency-sidebar');
-            let html = '';
-            for (const [code, data] of Object.entries(rates)) {
-                const isActive = currentCurrency === code;
-                const baseClass = "px-3 py-2 text-xs font-bold rounded-lg transition-all";
-                const activeClass = isActive ? "bg-[#ff0055] text-white shadow-[0_0_15px_rgba(255,0,85,0.6)]" : "text-gray-400 hover:text-[#ff0055]";
-                
-                html += `
-                    <button onclick="setGlobalCurrency('${code}')" class="${baseClass} ${activeClass}">
-                        ${code} ${data.symbol}
-                    </button>
-                `;
-            }
-            sidebar.innerHTML = html;
+        // --- 2. Check Auth State on Page Load ---
+        async function checkAuthState() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            updateNavbarState(session);
+            
+            // Listen for changes (e.g. sign in on another tab)
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                updateNavbarState(session);
+            });
         }
 
-        function setGlobalCurrency(code) {
-            currentCurrency = code;
+        // --- 3. Update Navbar UI based on Session ---
+        function updateNavbarState(session) {
+            if (session) {
+                const user = session.user;
+                const avatarUrl = user.user_metadata.avatar_url;
+                const userName = user.user_metadata.full_name || 'User';
+
+                // 1. Hide the "Login / Register" text button in the menu
+                if(authContainer) {
+                    authContainer.innerHTML = '';
+                    authContainer.style.display = 'none'; // Ensure it's hidden
+                }
+
+                // 2. Replace the top-right User Icon with the Discord Profile Pic + Dropdown
+                if (userProfileBtn) {
+                    const displayImage = avatarUrl ? 
+                        `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
+                        `<div class="w-8 h-8 rounded-full bg-[#ff0055] flex items-center justify-center text-white font-bold border border-[#ff0055]">${userName[0].toUpperCase()}</div>`;
+                    
+                    userProfileBtn.innerHTML = `
+                        <div class="relative group" id="profile-trigger-container">
+                            <div onclick="toggleProfileDropdown(event)">${displayImage}</div>
+                            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full pt-4 w-64 z-50 fade-in-scale">
+                                <div class="bg-[#12051a] border border-[#ff0055]/30 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
+                                    <div class="p-4 border-b border-[#ff0055]/20 bg-[#ff0055]/5">
+                                        <p class="text-white font-bold truncate">${userName}</p>
+                                        <p class="text-xs text-gray-400 truncate">${user.email || 'Discord User'}</p>
+                                    </div>
+                                    <div class="p-2">
+                                        <button onclick="handleSignOut()" class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#ff0055]/10 rounded-lg transition-colors flex items-center gap-2">
+                                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                // Not logged in -> Show default Login buttons
+                if(authContainer) {
+                    authContainer.style.display = 'block';
+                    authContainer.innerHTML = `
+                       <a href="login.html" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
+                    `;
+                }
+                
+                if(userProfileBtn) {
+                     userProfileBtn.innerHTML = `
+                        <a href="login.html" title="Login">
+                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
+                        </a>
+                     `;
+                }
+            }
+            lucide.createIcons();
+        }
+
+        // --- Toggle Dropdown Helper ---
+        window.toggleProfileDropdown = function(e) {
+            e.stopPropagation(); // Prevent immediate close
+            const menu = document.getElementById('profile-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('profile-dropdown-menu');
+            const container = document.getElementById('profile-trigger-container');
+            if (menu && !menu.classList.contains('hidden') && container && !container.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // --- 4. Handle Discord Login ---
+        window.handleDiscordLogin = async function() {
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                    provider: 'discord',
+                    options: {
+                        // Redirect to CURRENT PAGE (login.html) to verify it works instantly
+                        redirectTo: window.location.href
+                    }
+                });
+                if (error) throw error;
+            } catch (error) {
+                console.error("Discord Login Error:", error);
+                errorMessage.textContent = error.message;
+                errorMessage.classList.remove('hidden');
+            }
+        };
+
+        // --- 5. Handle Sign Out ---
+        window.handleSignOut = async function() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (!error) {
+                window.location.reload(); // Refresh to update UI
+            }
+        };
+
+        // --- 6. Initialize ---
+        window.onload = () => {
             renderCurrencySidebar();
+            lucide.createIcons();
+            checkAuthState(); // Run check on load
+        };
+
+        // Sidebar Logic
+        let rates = { USD: { symbol: '$', rate: 1 } }; 
+        function renderCurrencySidebar() {
+             const sidebar = document.getElementById('currency-sidebar');
+             if(sidebar) sidebar.innerHTML = ''; 
         }
 
         // New function to handle donation tier selection
@@ -353,10 +511,6 @@
             document.getElementById('donation-summary').innerHTML = summaryHTML;
         }
 
-        window.onload = () => {
-            renderCurrencySidebar();
-            lucide.createIcons();
-        };
     </script>
 </body>
 </html>
