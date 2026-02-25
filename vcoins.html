@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donate - VIP VU BM</title>
+    <title>VCoins - VIP VU BM</title>
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,13 +18,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .fill-current { fill: currentColor; }
-        
-        /* Custom Neon Glow for the Selected Card */
-        .neon-border {
-            border-color: #ff0055 !important;
-            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(255, 0, 85, 0.1);
-            transform: scale(1.05);
-        }
 
         /* Dropdown Animation */
         .dropdown-menu {
@@ -33,9 +26,23 @@
             animation: scaleIn 0.2s ease-out forwards;
         }
         
-        /* The .group class on the container controls the hover. */
         .group:hover .dropdown-menu {
             display: block;
+        }
+        
+        /* Fade in scale animation */
+        .fade-in-scale {
+            animation: scaleIn 0.15s ease-out forwards;
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            animation: modalIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes scaleIn {
@@ -64,9 +71,7 @@
         <div class="max-w-7xl mx-auto px-4 xl:px-8 h-20 flex items-center justify-between">
             <!-- Brand -->
             <a href="vip.html" class="flex items-center gap-3 group cursor-pointer">
-                <!-- LOGO IMAGE HERE -->
                 <img src="https://placehold.co/40x40/ff0055/ffffff?text=V" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
-                
                 <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">VIP VU BM</span>
             </a>
 
@@ -76,7 +81,7 @@
                 
                 <!-- Shop Now Dropdown -->
                 <div class="relative group py-6">
-                    <button class="flex items-center gap-1 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">
+                    <button class="flex items-center gap-1 text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">
                         Shop Now <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
                     </button>
                     <!-- Dropdown Menu -->
@@ -87,7 +92,7 @@
                             <a href="long-poses.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Long Poses</a>
                             <a href="furniture.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Furniture pack</a>
                             <a href="credits.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Credits</a>
-                            <a href="vcoins.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Vcoins</a>
+                            <a href="vcoins.html" class="px-4 py-2.5 bg-[#ff0055]/10 text-[#ff0055] pl-5 transition-all duration-300 block">Vcoins</a>
                             <a href="accessories.html" class="px-4 py-2.5 hover:bg-[#ff0055]/20 hover:text-[#ff0055] hover:pl-5 transition-all duration-300 block">Accessories</a>
                         </div>
                     </div>
@@ -95,19 +100,17 @@
 
                 <a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Bundles</a>
                 <a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Track Order</a>
-                <a href="support.html" class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Support</a>
+                <a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Support</a>
                 <a href="about.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">About Us</a>
-                <!-- Donate Link (Highlighted Red) -->
-                <a href="donate.html" class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all flex items-center gap-1 font-bold">Donate <span class="text-[#ff0055] drop-shadow-[0_0_5px_rgba(255,0,85,0.8)]">❤️</span></a>
+                <a href="donate.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all flex items-center gap-1">Donate <span class="text-[#ff0055] drop-shadow-[0_0_5px_rgba(255,0,85,0.8)]">❤️</span></a>
                 
-                <!-- DYNAMIC AUTH SECTION (JS will populate this) -->
+                <!-- DYNAMIC AUTH SECTION -->
                 <div id="auth-container" class="ml-2 relative">
-                    <!-- Default Login Button (Visible by default, hidden by JS if logged in) -->
                     <a href="login.html" id="nav-login-btn" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
                 </div>
             </div>
 
-            <!-- Utilities -->
+            <!-- Utilities (Right Side) -->
             <div class="flex items-center gap-4 text-gray-300">
                 <div class="hidden md:flex items-center gap-3">
                     <!-- Discord -->
@@ -115,7 +118,7 @@
                         <svg class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
                     </a>
                     
-                    <!-- WhatsApp -->
+                    <!-- WhatsApp (Added) -->
                     <a href="https://wa.me/918372883928378" target="_blank" title="Contact on WhatsApp">
                         <svg class="w-5 h-5 cursor-pointer hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                     </a>
@@ -134,115 +137,144 @@
         </div>
     </nav>
 
-    <!-- Global Widgets: Currency Sidebar -->
+    <!-- Global Widgets: Currency Sidebar (Hidden) -->
     <div id="currency-sidebar" class="fixed left-0 top-1/3 -translate-y-1/2 z-50 bg-[#12051a]/90 backdrop-blur-md border border-[#ff0055]/30 rounded-r-xl shadow-[0_0_20px_rgba(255,0,85,0.2)] flex flex-col p-1 overflow-hidden"></div>
 
-    <!-- MAIN PAGE CONTENT: DONATE -->
+    <!-- MAIN PAGE CONTENT: VCOINS CATEGORY -->
     <main id="app-main" class="flex-grow">
-        <div class="py-20 relative bg-[#08020a] min-h-[70vh]">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-[#ff0055]/5 via-[#08020a] to-[#08020a] pointer-events-none"></div>
+        
+        <!-- Category Hero -->
+        <section class="py-12 relative overflow-hidden bg-gradient-to-r from-[#6e0b26] to-[#000000]">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10 text-center">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter drop-shadow-lg uppercase">IMVU VCOINS 💎</h1>
+                </div>
+                <p class="text-lg text-white font-medium drop-shadow-md">Premium Currency • Instant Delivery</p>
+                <div class="flex items-center justify-center gap-2 mt-4 text-sm font-bold text-[#ff0055] drop-shadow-sm bg-black/40 py-2 rounded-full w-fit mx-auto px-6 border border-[#ff0055]/30">
+                     <i data-lucide="check-circle" class="w-4 h-4"></i> Secure VCoin Transfer
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-4 xl:px-8 py-10 relative z-10">
             
-            <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
-                
-                <!-- Donation Header -->
-                <div class="flex justify-center mb-6">
-                    <div class="w-16 h-16 rounded-full bg-[#ff0055]/10 flex items-center justify-center border border-[#ff0055]/30 shadow-[0_0_20px_rgba(255,0,85,0.2)]">
-                        <i data-lucide="heart" class="w-8 h-8 text-[#ff0055] fill-current"></i>
+            <!-- How It Works (Centered/Full Width since Rules are removed) -->
+            <div class="max-w-4xl mx-auto mb-16">
+                 <div class="bg-[#12051a] border border-[#ff0055] rounded-2xl shadow-[0_0_30px_rgba(255,0,85,0.15)] p-8 text-gray-300 text-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff0055] to-transparent"></div>
+                    
+                    <h3 class="text-2xl font-black text-white mb-8 uppercase tracking-wide flex items-center justify-center gap-2">
+                        <i data-lucide="zap" class="w-6 h-6 text-[#ff0055]"></i> How It Works
+                    </h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4 bg-black/20 p-5 rounded-xl border border-white/5 hover:border-[#ff0055]/30 transition-all">
+                            <span class="text-3xl bg-[#ff0055]/20 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">📝</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Provide Username</h4>
+                                <p>Enter your IMVU username accurately at checkout to ensure delivery to the correct avatar.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-black/20 p-5 rounded-xl border border-white/5 hover:border-[#ff0055]/30 transition-all">
+                            <span class="text-3xl bg-[#ff0055]/20 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">🎁</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Instant Transfer</h4>
+                                <p>We transfer VCoins directly to your account wallet. Delivery typically within 1-4 hours.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-black/20 p-5 rounded-xl border border-white/5 hover:border-[#ff0055]/30 transition-all">
+                            <span class="text-3xl bg-[#ff0055]/20 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">🔒</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Secure Transaction</h4>
+                                <p>Transactions are secure. Once VCoins are sent, they cannot be reversed or refunded.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-black/20 p-5 rounded-xl border border-white/5 hover:border-[#ff0055]/30 transition-all">
+                            <span class="text-3xl bg-[#ff0055]/20 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">📉</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Market Rates</h4>
+                                <p>VCoin rates are subject to market fluctuations and availability. Check Discord for live pricing.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <h2 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                    Support <span class="text-[#ff0055] drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">VIP VU BM</span>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="text-center mb-10">
+                 <h2 class="text-4xl font-black text-white tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                        Buy VCoins <span class="text-[#ff0055]">🪙</span>
                 </h2>
-                
-                <p class="text-gray-400 mb-10 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Your donations help us create new products, improve existing ones, maintain the store infrastructure, cover server & hosting costs, and keep prices affordable for the entire IMVU community. Every contribution — big or small — makes a real difference! ❤️
-                </p>
+            </div>
+            
+            <div id="product-grid" class="max-w-2xl mx-auto">
+                <!-- Single Product Card -->
+                <div class="bg-[#12051a] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(255,0,85,0.2)] border border-[#ff0055]/40 hover:border-[#ff0055] hover:shadow-[0_0_60px_rgba(255,0,85,0.4)] transition-all duration-300 group flex flex-col">
+                    <div class="relative aspect-[16/9] overflow-hidden bg-[#08020a]">
+                        <img src="https://files.catbox.moe/n0cml4.jpeg" alt="VCoins Packages" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
+                         <div class="absolute top-3 left-3">
+                             <span class="bg-[#ff0055] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
+                                Best Rates
+                            </span>
+                        </div>
+                    </div>
 
-                <!-- Features Pills -->
-                <div class="flex flex-wrap justify-center gap-3 mb-16">
-                    <span class="px-4 py-2 rounded-full bg-[#12051a] border border-[#ff0055]/20 text-xs font-bold text-gray-400 flex items-center gap-2">
-                        <i data-lucide="hammer" class="w-3 h-3 text-[#ff0055]"></i> New Products
-                    </span>
-                    <span class="px-4 py-2 rounded-full bg-[#12051a] border border-[#ff0055]/20 text-xs font-bold text-gray-400 flex items-center gap-2">
-                        <i data-lucide="server" class="w-3 h-3 text-[#ff0055]"></i> Server Costs
-                    </span>
-                    <span class="px-4 py-2 rounded-full bg-[#12051a] border border-[#ff0055]/20 text-xs font-bold text-gray-400 flex items-center gap-2">
-                        <i data-lucide="wrench" class="w-3 h-3 text-[#ff0055]"></i> Bug Fixes
-                    </span>
-                    <span class="px-4 py-2 rounded-full bg-[#12051a] border border-[#ff0055]/20 text-xs font-bold text-gray-400 flex items-center gap-2">
-                        <i data-lucide="lightbulb" class="w-3 h-3 text-[#ff0055]"></i> Feature Updates
-                    </span>
-                    <span class="px-4 py-2 rounded-full bg-[#12051a] border border-[#ff0055]/20 text-xs font-bold text-gray-400 flex items-center gap-2">
-                        <i data-lucide="heart" class="w-3 h-3 text-[#ff0055]"></i> Community Support
-                    </span>
+                    <div class="p-8 flex flex-col flex-grow relative text-center">
+                        <h3 class="text-2xl font-black text-white mb-2">Complete VCoins List</h3>
+                        <p class="text-sm text-gray-400 mb-6 font-medium">Browse our full price list of IMVU VCoins directly on Discord.</p>
+                        
+                        <div class="flex flex-col gap-3">
+                             <button onclick="window.open('https://discord.gg/urbbRvTY3p', '_blank')" class="w-full py-4 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-black text-lg shadow-[0_0_20px_rgba(88,101,242,0.4)] hover:shadow-[0_0_30px_rgba(88,101,242,0.6)] transition-all uppercase tracking-wide border border-white/10 flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                                View Catalog on Discord
+                            </button>
+                            
+                            <button onclick="openBuyModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#aa0038] text-white font-black text-lg shadow-[0_0_20px_rgba(88,101,242,0.4)] hover:shadow-[0_0_30px_rgba(88,101,242,0.6)] transition-all uppercase tracking-wide border border-white/10 flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Donation Tiers Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    
-                    <!-- Tier 1: Well Wisher -->
-                    <div id="tier-200" onclick="selectDonationTier(200, 'Well Wisher', this)" class="bg-[#12051a] p-8 rounded-3xl border border-[#ff0055]/20 hover:border-[#ff0055] transition-all cursor-pointer group flex flex-col items-center tier-card">
-                        <div class="w-12 h-12 rounded-full bg-[#ff0055]/10 flex items-center justify-center mb-4 group-hover:bg-[#ff0055] transition-colors">
-                            <i data-lucide="coffee" class="w-6 h-6 text-[#ff0055] group-hover:text-white"></i>
-                        </div>
-                        <div class="text-3xl font-black text-white mb-1">200 V</div>
-                        <div class="text-xs font-bold text-[#ff0055] uppercase tracking-widest mb-4">Well Wisher</div>
-                        <p class="text-xs text-gray-500">A thank you shoutout on Discord</p>
-                    </div>
-
-                    <!-- Tier 2: Supporter -->
-                    <div id="tier-500" onclick="selectDonationTier(500, 'Supporter', this)" class="bg-[#12051a] p-8 rounded-3xl border border-[#ff0055]/20 hover:border-[#ff0055] transition-all cursor-pointer group flex flex-col items-center tier-card">
-                        <div class="w-12 h-12 rounded-full bg-[#ff0055]/10 flex items-center justify-center mb-4 group-hover:bg-[#ff0055] transition-colors">
-                            <i data-lucide="heart" class="w-6 h-6 text-[#ff0055] group-hover:text-white"></i>
-                        </div>
-                        <div class="text-3xl font-black text-white mb-1">500 V</div>
-                        <div class="text-xs font-bold text-[#ff0055] uppercase tracking-widest mb-4">Supporter</div>
-                        <p class="text-xs text-gray-500">Shoutout + 1% Discount</p>
-                    </div>
-
-                    <!-- Tier 3: VIP (Default) -->
-                    <div id="tier-1000" onclick="selectDonationTier(1000, 'VIP', this)" class="bg-[#12051a] p-8 rounded-3xl border-2 border-[#ff0055] neon-border relative flex flex-col items-center transform scale-105 z-10 tier-card">
-                        <div class="absolute -top-3 bg-[#ff0055] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">Popular</div>
-                        <div class="w-12 h-12 rounded-full bg-[#ff0055] flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(255,0,85,0.6)]">
-                            <i data-lucide="star" class="w-6 h-6 text-white fill-current"></i>
-                        </div>
-                        <div class="text-3xl font-black text-white mb-1">1000 V</div>
-                        <div class="text-xs font-bold text-[#ff0055] uppercase tracking-widest mb-4">VIP</div>
-                        <p class="text-xs text-gray-400">All of the above + 2.5% Discount</p>
-                    </div>
-
-                    <!-- Tier 4: VIP+ -->
-                    <div id="tier-3000" onclick="selectDonationTier(3000, 'VIP+', this)" class="bg-[#12051a] p-8 rounded-3xl border border-[#ff0055]/20 hover:border-[#ff0055] transition-all cursor-pointer group flex flex-col items-center tier-card">
-                        <div class="w-12 h-12 rounded-full bg-[#ff0055]/10 flex items-center justify-center mb-4 group-hover:bg-[#ff0055] transition-colors">
-                            <i data-lucide="crown" class="w-6 h-6 text-[#ff0055] group-hover:text-white"></i>
-                        </div>
-                        <div class="text-3xl font-black text-white mb-1">3000 V</div>
-                        <div class="text-xs font-bold text-[#ff0055] uppercase tracking-widest mb-4">VIP+</div>
-                        <p class="text-xs text-gray-500">All of the Above + 5% Discount</p>
-                    </div>
-
-                </div>
-
-                <!-- Payment Selection Area -->
-                <div class="max-w-md mx-auto">
-                    <div id="donation-summary" class="text-sm font-bold text-gray-400 mb-6">
-                        Donating <span class="text-white">1000 VCoins</span> as a <span class="text-white">VIP</span>
-                    </div>
-
-                    <!-- VCoins Payment Button -->
-                    <a href="https://www.imvu.com/next/home/" target="_blank" class="w-full block bg-[#ffc107] hover:bg-[#ffca28] text-black font-black py-4 rounded-xl shadow-[0_0_20px_rgba(255,193,7,0.4)] transition-all transform hover:-translate-y-1 mb-3 text-lg flex items-center justify-center gap-3">
-                        <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center text-[#ffc107] text-xs">V</div>
-                        Pay with VCoins
-                    </a>
-                    
-                    <p class="text-[10px] text-gray-500 mt-4">
-                        Secure VCoin transfer powered by IMVU.
-                    </p>
-                </div>
-
             </div>
         </div>
+
+        <!-- BUY NOW MODAL -->
+        <div id="buy-modal" class="fixed inset-0 z-[110] hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeBuyModal()"></div>
+            <div class="relative z-20 w-full max-w-md bg-[#12051a] border border-[#ff0055]/50 rounded-3xl p-8 shadow-[0_0_60px_rgba(255,0,85,0.3)] modal-enter">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-black text-white">Purchase Options</h3>
+                    <button onclick="closeBuyModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+                <div class="space-y-3">
+                    <a href="#" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="ticket" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord Server Ticket</span></div>
+                        <p class="text-xs text-gray-400">Allows you to create a ticket on our official server to connect with team to buy the product</p>
+                    </a>
+                    <a href="https://discord.com/users/1293592753116024928" target="_blank" class="block p-4 rounded-xl bg-[#5865F2]/20 border border-[#5865F2]/50 hover:bg-[#5865F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-circle" class="text-[#5865F2]"></i><span class="font-bold text-white">Proceed to buy via Discord</span></div>
+                        <p class="text-xs text-gray-400">Allows u to contact the vip vu bm team directly on our personal discord ID</p>
+                    </a>
+                    <a href="https://wa.me/+918135896977" target="_blank" class="block p-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/50 hover:bg-[#25D366]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="message-square" class="text-[#25D366]"></i><span class="font-bold text-white">Proceed to buy via WhatsApp</span></div>
+                        <p class="text-xs text-gray-400">Chat directly with our sales team for instant purchase</p>
+                    </a>
+                    <a href="https://ig.me/m/vipvu.bm" target="_blank" class="block p-4 rounded-xl bg-gradient-to-r from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 border border-[#fd1d1d]/50 hover:bg-white/5 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="instagram" class="text-[#fd1d1d]"></i><span class="font-bold text-white">Proceed to buy via Instagram</span></div>
+                        <p class="text-xs text-gray-400">DM us on Instagram to complete your purchase</p>
+                    </a>
+                     <a href="https://twitter.com/vipvubm" target="_blank" class="block p-4 rounded-xl bg-[#1DA1F2]/20 border border-[#1DA1F2]/50 hover:bg-[#1DA1F2]/30 transition-all group">
+                        <div class="flex items-center gap-3 mb-1"><i data-lucide="twitter" class="text-[#1DA1F2]"></i><span class="font-bold text-white">Proceed to buy via Twitter</span></div>
+                        <p class="text-xs text-gray-400">Reach out on X (Twitter) for purchase inquiries</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
@@ -250,19 +282,15 @@
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-[#ff0055] to-transparent shadow-[0_0_15px_rgba(255,0,85,1)]"></div>
         <div class="max-w-7xl mx-auto px-4 xl:px-8 relative z-10">
             
-            <div class="flex flex-col items-center justify-center mb-16">
-                 <!-- Removed Quick Links and Support Columns as requested -->
-            </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-32 mb-16">
-                <!-- Column 1: Imvu Market -->
+                <!-- Column 1: VIP VU BM -->
                 <div>
                     <a href="vip.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
-                        <div class="w-8 h-8 bg-[#ff0055]/10 border border-[#ff0055]/50 rounded-full flex items-center justify-center text-[#ff0055] font-bold shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all">🦁</div>
+                        <img src="https://placehold.co/40x40/ff0055/ffffff?text=V" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all object-cover">
                         <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">VIP VU BM</span>
                     </a>
                     <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
-                        Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of permanent BM triggers and exclusive rooms.
+                        Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of BM triggers and exclusive rooms.
                     </p>
                     <div class="flex gap-4">
                         <a href="https://discord.com" target="_blank" class="w-10 h-10 rounded-full bg-[#12051a] border border-[#ff0055]/30 flex items-center justify-center cursor-pointer hover:bg-[#ff0055] hover:text-white hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] text-gray-300 transition-all">
@@ -274,7 +302,7 @@
                     </div>
                 </div>
 
-                <!-- Column 2: Need Help (Modified) -->
+                <!-- Column 2: Need Help? -->
                 <div class="flex flex-col items-start md:items-end text-left md:text-right">
                     <h4 class="font-black text-white text-lg mb-6 tracking-wide drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">Need Help?</h4>
                     <p class="text-gray-400 text-sm mb-4 font-medium max-w-xs">
@@ -287,18 +315,13 @@
             </div>
 
             <div class="flex flex-col items-center gap-4 text-center text-sm text-gray-500 font-medium pt-8 border-t border-[#ff0055]/20">
-                <p class="max-w-4xl text-xs text-gray-600">
-                    This site is not part of the IMVU™ website or IMVU™. Additionally, this site is NOT endorsed by IMVU™ in any way. IMVU™ is a trademark of IMVU™.
-                </p>
-                <!-- Policy Links -->
-                <div class="flex items-center justify-center gap-6 text-gray-400 font-bold">
+                 <p class="max-w-4xl text-xs text-gray-600">This site is not part of the IMVU™ website or IMVU™. Additionally, this site is NOT endorsed by IMVU™ in any way. IMVU™ is a trademark of IMVU™.</p>
+                 <div class="flex items-center justify-center gap-6 text-gray-400 font-bold">
                     <a href="support.html#privacy-policy" class="hover:text-[#ff0055] transition-colors">Privacy Policy</a>
                     <a href="support.html#terms-of-service" class="hover:text-[#ff0055] transition-colors">Terms of Service</a>
                     <a href="support.html#return-policy" class="hover:text-[#ff0055] transition-colors">Return Policy</a>
-                </div>
-                <div class="text-gray-600 font-bold mt-2">
-                    © 2026 VIP VU BM. All rights reserved.
-                </div>
+                 </div>
+                 <div class="text-gray-600 font-bold mt-2">© 2026 VIP VU BM. All rights reserved.</div>
             </div>
         </div>
     </footer>
@@ -319,6 +342,10 @@
     <!-- Supabase Logic -->
     <script>
         // --- 1. Supabase Initialization ---
+        // Define variables to prevent ReferenceError
+        let rates = { USD: { symbol: '$', rate: 1 } };
+        let currentCurrency = 'USD';
+
         const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
         
@@ -326,6 +353,8 @@
 
         const authContainer = document.getElementById('auth-container');
         const userProfileBtn = document.getElementById('user-profile-btn');
+
+        let currentModalProductId = null;
 
         // --- 2. Check Auth State on Page Load ---
         async function checkAuthState() {
@@ -345,13 +374,11 @@
                 const avatarUrl = user.user_metadata.avatar_url;
                 const userName = user.user_metadata.full_name || 'User';
 
-                // 1. Hide the "Login / Register" text button in the menu
                 if(authContainer) {
                     authContainer.innerHTML = '';
-                    authContainer.style.display = 'none'; // Ensure it's hidden
+                    authContainer.style.display = 'none';
                 }
 
-                // 2. Replace the top-right User Icon with the Discord Profile Pic + Dropdown
                 if (userProfileBtn) {
                     const displayImage = avatarUrl ? 
                         `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
@@ -377,7 +404,6 @@
                     `;
                 }
             } else {
-                // Not logged in -> Show default Login buttons
                 if(authContainer) {
                     authContainer.style.display = 'block';
                     authContainer.innerHTML = `
@@ -398,14 +424,13 @@
 
         // --- Toggle Dropdown Helper ---
         window.toggleProfileDropdown = function(e) {
-            e.stopPropagation(); // Prevent immediate close
+            e.stopPropagation();
             const menu = document.getElementById('profile-dropdown-menu');
             if (menu) {
                 menu.classList.toggle('hidden');
             }
         }
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('profile-dropdown-menu');
             const container = document.getElementById('profile-trigger-container');
@@ -414,46 +439,33 @@
             }
         });
 
-        // --- 4. Handle Sign Out ---
+        // --- 5. Handle Sign Out ---
         window.handleSignOut = async function() {
             const { error } = await supabaseClient.auth.signOut();
             if (!error) {
-                window.location.reload(); // Refresh to update UI
+                window.location.reload();
             }
         };
 
-        // --- 5. Initialize ---
+        // --- 6. Initialize ---
         window.onload = () => {
-            renderCurrencySidebar(); // This function is currently empty but kept for structure
+            renderCurrencySidebar(); 
             lucide.createIcons();
-            checkAuthState(); // Run check on load
+            checkAuthState(); 
         };
 
-        // Sidebar Logic
-        let rates = { USD: { symbol: '$', rate: 1 } }; 
+        // Sidebar Logic (Empty to prevent error)
         function renderCurrencySidebar() {
              const sidebar = document.getElementById('currency-sidebar');
              if(sidebar) sidebar.innerHTML = ''; 
         }
 
-        // New function to handle donation tier selection
-        function selectDonationTier(amount, name, element) {
-            // 1. Reset all cards to default style
-            document.querySelectorAll('.tier-card').forEach(card => {
-                card.classList.remove('neon-border', 'scale-105', 'z-10');
-                card.classList.add('border-[#ff0055]/20');
-                // Remove custom border override if it exists
-                card.style.borderColor = ''; 
-            });
-
-            // 2. Highlight clicked card
-            element.classList.remove('border-[#ff0055]/20');
-            element.classList.add('neon-border', 'scale-105', 'z-10');
-
-            // 3. Update the text below
-            const summaryHTML = `Donating <span class="text-white">${amount} VCoins</span> as a <span class="text-white">${name}</span>`;
-            document.getElementById('donation-summary').innerHTML = summaryHTML;
+        // --- BUY OPTIONS MODAL ---
+        function openBuyModal() {
+            const modal = document.getElementById('buy-modal');
+            modal.classList.remove('hidden');
         }
+        function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
 
     </script>
 </body>
