@@ -88,14 +88,14 @@
     <nav class="w-full bg-[#0d0415]/95 backdrop-blur-md border-b border-[#ff0055]/30 sticky top-0 z-40 shadow-[0_4px_30px_rgba(255,0,85,0.15)]">
         <div class="max-w-7xl mx-auto px-4 xl:px-8 h-20 flex items-center justify-between">
             <!-- Brand -->
-            <a href="vip.html" class="flex items-center gap-3 group cursor-pointer">
-                <img src="https://placehold.co/40x40/ff0055/ffffff?text=V" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
-                <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">VIP VU BM</span>
-            </a>
+            <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
+                <img src="https://images2.imgbox.com/14/12/dXl0f5N5_o.jpg" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
+
+                <img src="https://images2.imgbox.com/f2/cf/Fs77LcED_o.png" alt="VIP VU BM" class="h-16 object-contain drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">
 
             <!-- Desktop Links -->
             <div class="hidden md:flex items-center gap-4 text-[13px] font-bold text-gray-300">
-                <a href="vip.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Home</a>
+                <a href="index.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Home</a>
                 
                 <!-- Shop Now Dropdown -->
                 <div class="relative group py-6">
@@ -116,7 +116,6 @@
                     </div>
                 </div>
 
-                <a href="bundles.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Bundles</a>
                 <a href="track-order.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Track Order</a>
                 <a href="support.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Support</a>
                 <a href="about.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">About Us</a>
@@ -323,36 +322,6 @@
                                  <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 24/7 Support</li>
                              </ul>
                          </div>
-
-                         <!-- Reviews Section -->
-                         <div>
-                             <h4 class="font-bold text-white mb-4 flex items-center justify-between">
-                                 Reviews
-                                 <span class="text-xs text-gray-500 font-normal">Verified Purchases</span>
-                             </h4>
-                             
-                             <!-- Review List -->
-                             <div id="reviews-list" class="space-y-4 mb-6"></div>
-
-                             <!-- Add Review Form -->
-                             <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
-                                 <h5 class="text-sm font-bold text-white mb-3">Write a Review</h5>
-                                 
-                                 <!-- Star Rating Selection -->
-                                 <div class="flex gap-1 mb-3">
-                                     <button onclick="setReviewRating(1)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
-                                     <button onclick="setReviewRating(2)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
-                                     <button onclick="setReviewRating(3)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
-                                     <button onclick="setReviewRating(4)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
-                                     <button onclick="setReviewRating(5)" class="star-btn text-gray-600 hover:text-[#ff0055] transition-colors"><i data-lucide="star" class="w-5 h-5 fill-current"></i></button>
-                                 </div>
-                                 <input type="hidden" id="review-rating-value" value="5">
-
-                                 <input type="text" id="review-name" placeholder="Your Name (Optional)" class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-2 focus:border-[#ff0055] outline-none">
-                                 <textarea id="review-text" placeholder="Share your thoughts..." class="w-full bg-[#12051a] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white mb-3 focus:border-[#ff0055] outline-none" rows="2"></textarea>
-                                 <button onclick="submitReview()" class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold text-white transition-colors">Post Review</button>
-                             </div>
-                         </div>
                      </div>
                  </div>
              </div>
@@ -401,9 +370,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-32 mb-16">
                 <!-- Column 1: VIP VU BM -->
                 <div>
-                    <a href="vip.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
-                        <img src="https://placehold.co/40x40/ff0055/ffffff?text=V" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_10px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_20px_rgba(255,0,85,0.8)] transition-all object-cover">
-                        <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#ff0055] to-[#ff6699] tracking-tighter drop-shadow-[0_0_5px_rgba(255,0,85,0.5)]">VIP VU BM</span>
+                    <a href="index.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
+                        <img src="https://images2.imgbox.com/14/12/dXl0f5N5_o.jpg" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
+
+                <img src="https://images2.imgbox.com/f2/cf/Fs77LcED_o.png" alt="VIP VU BM" class="h-16 object-contain drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">
                     </a>
                     <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
                         Your trusted source for premium IMVU black market triggers and rooms since 2020. Transform your virtual experience with our curated collection of BM triggers and exclusive rooms.
@@ -467,7 +437,6 @@
         const userProfileBtn = document.getElementById('user-profile-btn');
 
         let currentModalProductId = null;
-        let currentReviewRating = 5;
 
         // --- 2. Check Auth State on Page Load ---
         async function checkAuthState() {
@@ -487,11 +456,13 @@
                 const avatarUrl = user.user_metadata.avatar_url;
                 const userName = user.user_metadata.full_name || 'User';
 
+                // 1. Hide the "Login / Register" text button in the menu
                 if(authContainer) {
                     authContainer.innerHTML = '';
-                    authContainer.style.display = 'none';
+                    authContainer.style.display = 'none'; // Ensure it's hidden
                 }
 
+                // 2. Replace the top-right User Icon with the Discord Profile Pic + Dropdown
                 if (userProfileBtn) {
                     const displayImage = avatarUrl ? 
                         `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
@@ -517,6 +488,7 @@
                     `;
                 }
             } else {
+                // Not logged in -> Show default Login buttons
                 if(authContainer) {
                     authContainer.style.display = 'block';
                     authContainer.innerHTML = `
@@ -537,13 +509,14 @@
 
         // --- Toggle Dropdown Helper ---
         window.toggleProfileDropdown = function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevent immediate close
             const menu = document.getElementById('profile-dropdown-menu');
             if (menu) {
                 menu.classList.toggle('hidden');
             }
         }
 
+        // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('profile-dropdown-menu');
             const container = document.getElementById('profile-trigger-container');
@@ -562,10 +535,9 @@
 
         // --- 6. Initialize ---
         window.onload = () => {
-            renderCurrencySidebar();
-            renderProducts(); 
             lucide.createIcons();
             checkAuthState(); 
+            fetchExchangeRates();
         };
 
         // Sidebar Logic
@@ -577,6 +549,44 @@
             VCOIN: { symbol: 'V', rate: 250 }
         };
         let currentCurrency = 'USD';
+
+        async function fetchExchangeRates() {
+            try {
+                // 1. Fetch live fiat rates from a free public API
+                const apiResponse = await fetch('https://open.er-api.com/v6/latest/USD');
+                const apiData = await apiResponse.json();
+                
+                if (apiData && apiData.rates) {
+                    // Update our rates with real-time global market values
+                    if(rates.GBP) rates.GBP.rate = apiData.rates.GBP;
+                    if(rates.EUR) rates.EUR.rate = apiData.rates.EUR;
+                    if(rates.INR) rates.INR.rate = apiData.rates.INR;
+                }
+
+                // 2. Fetch custom rates (like VCOIN) from your Supabase table
+                const { data: supaData, error } = await supabaseClient
+                    .from('exchange_rates')
+                    .select('*');
+
+                if (!error && supaData && supaData.length > 0) {
+                    supaData.forEach(item => {
+                        // Supabase overrides the API if you manually set a value there (Perfect for VCoins)
+                        if (rates[item.code]) {
+                            rates[item.code].rate = item.rate;
+                            if(item.symbol) rates[item.code].symbol = item.symbol;
+                        } else {
+                            rates[item.code] = { symbol: item.symbol, rate: item.rate };
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to fetch live rates, falling back to defaults:", err);
+            } finally {
+                // Always render the UI with the latest available rates
+                renderCurrencySidebar();
+                renderProducts();
+            }
+        }
 
         function renderCurrencySidebar() {
              const sidebar = document.getElementById('currency-sidebar');
@@ -591,6 +601,7 @@
                 sidebar.innerHTML = html;
              }
         }
+
         function setGlobalCurrency(code) {
             currentCurrency = code;
             renderCurrencySidebar();
@@ -670,7 +681,7 @@
             const { symbol, rate } = rates[currentCurrency];
 
             // Helper to build HTML
-            const buildCard = (product, avgRating) => {
+            const buildCard = (product) => {
                  const isComingSoon = product.title === "Coming Soon";
                  const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
                 const convertedOriginal = currentCurrency === 'VCOIN' ? Math.round(product.originalPrice * rate).toLocaleString() : (product.originalPrice * rate).toFixed(2);
@@ -708,7 +719,7 @@
                             <span class="text-xs font-bold text-[#ff0055] uppercase tracking-widest bg-[#ff0055]/10 border border-[#ff0055]/20 px-2.5 py-1 rounded-md">${product.category}</span>
                             <div class="flex items-center gap-1 text-white font-bold text-sm bg-[#08020a] px-2 py-1 rounded-md border border-gray-800">
                                 <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i> 
-                                <span id="grid-rating-${product.id}">${avgRating || product.rating}</span>
+                                <span>${product.rating}</span>
                             </div>
                         </div>
                         <h3 class="text-xl font-black text-white mb-1 leading-tight line-clamp-1">${product.title}</h3>
@@ -726,35 +737,8 @@
                 `;
             };
 
-            grid.innerHTML = productsData.map(p => buildCard(p, p.rating)).join('');
+            grid.innerHTML = productsData.map(p => buildCard(p)).join('');
             lucide.createIcons();
-
-            // 2. Asynchronously update ratings
-            updateGridRatings();
-        }
-
-        async function updateGridRatings() {
-            // Fetch all reviews
-            const { data, error } = await supabaseClient
-                .from('reviews')
-                .select('product_id, rating');
-
-            if (error || !data) return;
-
-            // Calculate averages
-            const ratingsMap = {};
-            data.forEach(r => {
-                if (!ratingsMap[r.product_id]) ratingsMap[r.product_id] = { sum: 0, count: 0 };
-                ratingsMap[r.product_id].sum += r.rating;
-                ratingsMap[r.product_id].count++;
-            });
-
-            // Update DOM
-            Object.keys(ratingsMap).forEach(pid => {
-                const avg = (ratingsMap[pid].sum / ratingsMap[pid].count).toFixed(1);
-                const el = document.getElementById(`grid-rating-${pid}`);
-                if (el) el.innerText = avg;
-            });
         }
 
         // --- PRODUCT DETAIL MODAL ---
@@ -770,7 +754,7 @@
             document.getElementById('modal-title').innerText = product.title;
             document.getElementById('modal-subtitle').innerText = product.subtitle;
             document.getElementById('modal-price').innerText = `${symbol}${convertedPrice}`;
-            document.getElementById('modal-rating').innerText = "New"; 
+            document.getElementById('modal-rating').innerText = product.rating; 
             
             // Dynamic Description Logic
             let skinText = "ANY SKIN (adapts your avatar skin tone automatically)";
@@ -788,7 +772,6 @@
 
             document.getElementById('modal-buy-now').onclick = () => { closeModal(); openBuyModal(product.title); };
 
-            loadReviews(productId); 
             modal.classList.remove('hidden');
         }
         function closeModal() { document.getElementById('product-modal').classList.add('hidden'); }
@@ -799,131 +782,6 @@
             modal.classList.remove('hidden');
         }
         function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
-
-        // --- SUPABASE REVIEWS ---
-        async function loadReviews(productId) {
-            const list = document.getElementById('reviews-list');
-            if (!list) return;
-            list.innerHTML = '';
-            
-            // Fetch from Supabase
-            try {
-                const { data, error } = await supabaseClient
-                    .from('reviews')
-                    .select('*')
-                    .eq('product_id', productId)
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    console.error("Error fetching reviews:", error);
-                } else if (data && data.length > 0) {
-                    let totalRating = 0;
-                    data.forEach(r => {
-                        addReviewToDom(r.user_name, r.review_text, r.rating);
-                        totalRating += (r.rating || 5);
-                    });
-                    
-                    // Update average rating
-                    const avg = (totalRating / data.length).toFixed(1);
-                    document.getElementById('modal-rating').innerText = avg;
-                    
-                    // Also update grid rating if possible
-                    const gridRatingEl = document.getElementById(`grid-rating-${productId}`);
-                    if(gridRatingEl) gridRatingEl.innerText = avg;
-
-                } else {
-                     document.getElementById('modal-rating').innerText = "New";
-                }
-            } catch (err) {
-                console.error("Supabase request failed:", err);
-            }
-            lucide.createIcons();
-        }
-
-        function addReviewToDom(name, text, rating = 5) {
-            const list = document.getElementById('reviews-list');
-            
-            // Generate Stars HTML
-            let starsHtml = '';
-            for(let i=0; i<5; i++) {
-                if(i < rating) starsHtml += '<i data-lucide="star" class="w-3 h-3 fill-current"></i>';
-                else starsHtml += '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>';
-            }
-
-            const html = `
-                <div class="bg-white/5 p-4 rounded-xl fade-in-scale mb-4">
-                     <div class="flex items-center gap-2 mb-2">
-                         <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px] font-bold">${name ? name[0].toUpperCase() : 'G'}</div>
-                         <span class="text-sm font-bold text-white">${name}</span>
-                         <div class="flex text-[#ff0055]">${starsHtml}</div>
-                     </div>
-                     <p class="text-xs text-gray-400">${text}</p>
-                 </div>
-            `;
-            list.insertAdjacentHTML('afterbegin', html);
-        }
-        
-        function setReviewRating(rating) {
-            currentReviewRating = rating;
-            // Update visual state of stars
-            const buttons = document.querySelectorAll('.star-btn');
-            buttons.forEach((btn, index) => {
-                if(index < rating) {
-                    btn.classList.remove('text-gray-600');
-                    btn.classList.add('text-[#ff0055]');
-                } else {
-                    btn.classList.add('text-gray-600');
-                    btn.classList.remove('text-[#ff0055]');
-                }
-            });
-        }
-
-        async function submitReview() {
-            const nameInput = document.getElementById('review-name');
-            const textInput = document.getElementById('review-text');
-            
-            if(!textInput.value) return;
-
-            // Get logged in user name or input name or guest
-            let userName = nameInput.value || "Guest User";
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session && !nameInput.value) {
-                userName = session.user.user_metadata.full_name || session.user.email;
-            }
-
-            const reviewText = textInput.value;
-
-            // Add to DOM immediately for feedback
-            addReviewToDom(userName, reviewText, currentReviewRating);
-
-            // Save to Supabase
-            if (currentModalProductId) {
-                const { error } = await supabaseClient
-                    .from('reviews')
-                    .insert([
-                        { 
-                            product_id: currentModalProductId, 
-                            user_name: userName, 
-                            review_text: reviewText,
-                            rating: currentReviewRating
-                        }
-                    ]);
-
-                if (error) {
-                    console.error("Error saving review:", error);
-                    alert("Failed to save review online. Please try again.");
-                } else {
-                    // Update grid rating after submission
-                    loadReviews(currentModalProductId);
-                }
-            }
-
-            textInput.value = '';
-            nameInput.value = '';
-            // Reset stars visual
-            setReviewRating(5); 
-            lucide.createIcons();
-        }
 
     </script>
 </body>
