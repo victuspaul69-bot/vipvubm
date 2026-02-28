@@ -372,7 +372,7 @@
             supabaseClient.auth.onAuthStateChange((event, session) => {
                 updateNavbarState(session);
                 if (event === 'SIGNED_IN') {
-                    window.location.href = "/accessories"; // Clean URL redirect
+                    window.location.href = "/accessories.html"; // Clean URL redirect
                 }
             });
         }

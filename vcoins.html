@@ -374,7 +374,7 @@
             supabaseClient.auth.onAuthStateChange((event, session) => {
                 updateNavbarState(session);
                 if (event === 'SIGNED_IN') {
-                    window.location.href = "/vcoins"; // Clean URL redirect
+                    window.location.href = "/vcoins.html"; // Clean URL redirect
                 }
             });
         }
