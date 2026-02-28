@@ -1289,19 +1289,17 @@
 
 
         async function checkAuthState() {
-
             const { data: { session } } = await supabaseClient.auth.getSession();
-
             updateNavbarState(session);
-
             
-
             supabaseClient.auth.onAuthStateChange((event, session) => {
-
                 updateNavbarState(session);
-
+                
+                // This instantly erases the # without refreshing the page
+                if (event === 'SIGNED_IN') {
+                    window.history.replaceState(null, document.title, window.location.pathname);
+                }
             });
-
         }
 
 

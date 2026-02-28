@@ -340,6 +340,9 @@
             // Listen for changes (e.g. sign in on another tab)
             supabaseClient.auth.onAuthStateChange((event, session) => {
                 updateNavbarState(session);
+                if (event === 'SIGNED_IN') {
+                    window.history.replaceState(null, document.title, window.location.pathname);
+                }
             });
         }
 
