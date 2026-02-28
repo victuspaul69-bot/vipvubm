@@ -379,7 +379,7 @@
 
             try {
                 // To properly redirect back to the site after login:
-                const redirectTarget = window.location.protocol === 'file:' ? undefined : window.location.origin + '/index.html';
+                const redirectTarget = window.location.protocol === 'file:' ? undefined : window.location.href;
 
                 const { data, error } = await supabaseClient.auth.signInWithOAuth({
                     provider: provider,
