@@ -1288,16 +1288,19 @@
 
 
 
+        // --- 2. Check Auth State on Page Load ---
         async function checkAuthState() {
             const { data: { session } } = await supabaseClient.auth.getSession();
             updateNavbarState(session);
             
+            // THE ONE-LINER: Instantly kills the empty # on page load
+            if (window.location.href.endsWith('#')) window.history.replaceState(null, '', window.location.pathname);
+            
+            // Listen for changes (e.g. sign in on another tab)
             supabaseClient.auth.onAuthStateChange((event, session) => {
                 updateNavbarState(session);
-                
-                // This instantly erases the # without refreshing the page
                 if (event === 'SIGNED_IN') {
-                    window.history.replaceState(null, document.title, window.location.pathname);
+                    window.location.href = "/index"; // Clean URL redirect
                 }
             });
         }
