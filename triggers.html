@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifting Triggers - VIP VU BM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+
+    <title>Gifting Triggers - IMVU Black Market</title>
     <meta name="description" content="Buy rare IMVU Black Market triggers. The best IMVU black market for black market triggers for your IMVU Avatar">
-    <meta name="author" content="VIP VU BM">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vipvubm.shop/">
@@ -24,12 +25,12 @@
       <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script src="/_vercel/speed-insights/script.js"></script>
 
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+    <script src="/_vercel/insights/script.js"></script>
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -122,7 +123,7 @@
                 <img src="https://images2.imgbox.com/14/12/dXl0f5N5_o.jpg" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
 
                 <img src="https://images2.imgbox.com/f2/cf/Fs77LcED_o.png" alt="VIP VU BM" class="h-16 object-contain drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">
-
+            </a>
             <!-- Desktop Links -->
             <div class="hidden md:flex items-center gap-4 text-[13px] font-bold text-gray-300">
                 <a href="index.html" class="hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all">Home</a>
@@ -455,34 +456,48 @@
     })();
     </script>
 
-    <!-- Supabase Logic -->
+    <!-- App Logic -->
     <script>
-        // --- 1. Supabase Initialization ---
+        // --- 1. Safely Initialize Supabase ---
         const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
         
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        let supabaseClient = null;
+        try {
+            // Guard against mobile adblockers disabling the script CDN
+            if (window.supabase) {
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+            } else {
+                console.warn("Supabase library not found. Adblocker might be active.");
+            }
+        } catch(e) {
+            console.error("Failed to initialize database:", e);
+        }
 
         const authContainer = document.getElementById('auth-container');
         const userProfileBtn = document.getElementById('user-profile-btn');
 
         let currentModalProductId = null;
 
-        // --- 2. Check Auth State on Page Load ---
+        // --- 2. Check Auth State ---
         async function checkAuthState() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            updateNavbarState(session);
-            
-            // THE ONE-LINER: Instantly kills the empty # on page load
-            if (window.location.href.endsWith('#')) window.history.replaceState(null, '', window.location.pathname);
-            
-            // Listen for changes (e.g. sign in on another tab)
-            supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (!supabaseClient) return; // Skip if blocked
+
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
                 updateNavbarState(session);
-                if (event === 'SIGNED_IN') {
-                    window.location.href = "/triggers.html"; // Clean URL redirect
-                }
-            });
+                
+                if (window.location.href.endsWith('#')) window.history.replaceState(null, '', window.location.pathname);
+                
+                supabaseClient.auth.onAuthStateChange((event, session) => {
+                    updateNavbarState(session);
+                    if (event === 'SIGNED_IN') {
+                        window.location.href = "/triggers.html";
+                    }
+                });
+            } catch (e) {
+                console.error("Auth check failed", e);
+            }
         }
 
         // --- 3. Update Navbar UI based on Session ---
@@ -492,13 +507,11 @@
                 const avatarUrl = user.user_metadata.avatar_url;
                 const userName = user.user_metadata.full_name || 'User';
 
-                // 1. Hide the "Login / Register" text button in the menu
                 if(authContainer) {
                     authContainer.innerHTML = '';
-                    authContainer.style.display = 'none'; // Ensure it's hidden
+                    authContainer.style.display = 'none';
                 }
 
-                // 2. Replace the top-right User Icon with the Discord Profile Pic + Dropdown
                 if (userProfileBtn) {
                     const displayImage = avatarUrl ? 
                         `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform" />` : 
@@ -524,20 +537,12 @@
                     `;
                 }
             } else {
-                // Not logged in -> Show default Login buttons
                 if(authContainer) {
                     authContainer.style.display = 'block';
-                    authContainer.innerHTML = `
-                       <a href="login.html" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>
-                    `;
+                    authContainer.innerHTML = `<a href="login.html" class="px-4 py-1.5 rounded-full border border-[#ff0055] bg-[#ff0055]/10 text-white shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>`;
                 }
-                
                 if(userProfileBtn) {
-                     userProfileBtn.innerHTML = `
-                        <a href="login.html" title="Login">
-                            <i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i>
-                        </a>
-                     `;
+                     userProfileBtn.innerHTML = `<a href="login.html" title="Login"><i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i></a>`;
                 }
             }
             lucide.createIcons();
@@ -545,14 +550,11 @@
 
         // --- Toggle Dropdown Helper ---
         window.toggleProfileDropdown = function(e) {
-            e.stopPropagation(); // Prevent immediate close
+            e.stopPropagation();
             const menu = document.getElementById('profile-dropdown-menu');
-            if (menu) {
-                menu.classList.toggle('hidden');
-            }
+            if (menu) menu.classList.toggle('hidden');
         }
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('profile-dropdown-menu');
             const container = document.getElementById('profile-trigger-container');
@@ -563,20 +565,12 @@
 
         // --- 5. Handle Sign Out ---
         window.handleSignOut = async function() {
+            if(!supabaseClient) return;
             const { error } = await supabaseClient.auth.signOut();
-            if (!error) {
-                window.location.reload();
-            }
+            if (!error) window.location.reload();
         };
 
-        // --- 6. Initialize ---
-        window.onload = () => {
-            lucide.createIcons();
-            checkAuthState(); 
-            fetchExchangeRates();
-        };
-
-        // Sidebar Logic
+        // Sidebar Logic & Default Rates
         let rates = {
             USD: { symbol: '$', rate: 1 },
             GBP: { symbol: '£', rate: 0.79 },
@@ -586,39 +580,49 @@
         };
         let currentCurrency = 'USD';
 
+        // --- 6. Initialize on DOMContentLoaded instead of window.onload ---
+        document.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+            
+            // Render IMMEDIATELY with hardcoded rates so the screen is never blank
+            renderCurrencySidebar();
+            renderProducts();
+            
+            // Trigger API fetches in the background
+            checkAuthState(); 
+            fetchExchangeRates(); 
+        });
+
         async function fetchExchangeRates() {
             try {
-                // 1. Fetch live fiat rates from a free public API
+                // Fetch live fiat rates
                 const apiResponse = await fetch('https://open.er-api.com/v6/latest/USD');
                 const apiData = await apiResponse.json();
                 
                 if (apiData && apiData.rates) {
-                    // Update our rates with real-time global market values
                     if(rates.GBP) rates.GBP.rate = apiData.rates.GBP;
                     if(rates.EUR) rates.EUR.rate = apiData.rates.EUR;
                     if(rates.INR) rates.INR.rate = apiData.rates.INR;
                 }
 
-                // 2. Fetch custom rates (like VCOIN) from your Supabase table
-                const { data: supaData, error } = await supabaseClient
-                    .from('exchange_rates')
-                    .select('*');
-
-                if (!error && supaData && supaData.length > 0) {
-                    supaData.forEach(item => {
-                        // Supabase overrides the API if you manually set a value there (Perfect for VCoins)
-                        if (rates[item.code]) {
-                            rates[item.code].rate = item.rate;
-                            if(item.symbol) rates[item.code].symbol = item.symbol;
-                        } else {
-                            rates[item.code] = { symbol: item.symbol, rate: item.rate };
-                        }
-                    });
+                // Fetch custom rates from Supabase if adblock didn't kill it
+                if (supabaseClient) {
+                    const { data: supaData, error } = await supabaseClient.from('exchange_rates').select('*');
+                    if (!error && supaData && supaData.length > 0) {
+                        supaData.forEach(item => {
+                            if (rates[item.code]) {
+                                rates[item.code].rate = item.rate;
+                                if(item.symbol) rates[item.code].symbol = item.symbol;
+                            } else {
+                                rates[item.code] = { symbol: item.symbol, rate: item.rate };
+                            }
+                        });
+                    }
                 }
             } catch (err) {
                 console.error("Failed to fetch live rates, falling back to defaults:", err);
             } finally {
-                // Always render the UI with the latest available rates
+                // Re-render UI with updated accurate rates quietly in background
                 renderCurrencySidebar();
                 renderProducts();
             }
@@ -646,77 +650,35 @@
 
         // --- DATA (20 Triggers) ---
         const productsData = [
-            {
-                id: "trig1", title: "Venom Foreskin", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "80.00", originalPrice: "95.00", rating: "4.9", image: "https://images2.imgbox.com/18/9b/s2V18N06_o.jpg", badges: [{ text: "Best Seller", color: "bg-[#ff0055]" }]
-            },
-            {
-                id: "trig2", title: "Realistic BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "85.00", originalPrice: "100.00", rating: "4.8", image: "https://images2.imgbox.com/9c/b0/tn7UNlx7_o.jpg", badges: [{ text: "New", color: "bg-purple-500" }]
-            },
-            {
-                id: "trig3", title: "Red Veiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "75.00", rating: "5.0", image: "https://images2.imgbox.com/4e/2c/NIJEpSkP_o.jpg", badges: [{ text: "Hot", color: "bg-[#ff0055]" }]
-            },
-            {
-                id: "trig4", title: "Slingshot", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "120.00", rating: "4.7", image: "https://thumbs2.imgbox.com/6c/8b/SK0yIRMR_t.jpg", badges: []
-            },
-            {
-                id: "trig5", title: "Wet BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "110.00", rating: "4.8", image: "https://images2.imgbox.com/ad/8d/4GNy3Z6n_o.jpg", badges: []
-            },
-            {
-                id: "trig6", title: "Wetty/Shiny Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "4.9", image: "https://thumbs2.imgbox.com/c5/4a/M0DgBphC_t.jpg", badges: [{ text: "Popular", color: "bg-blue-500" }]
-            },
-            {
-                id: "trig7", title: "Wetty/Shiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "85.00", rating: "5.0", image: "https://thumbs2.imgbox.com/27/8d/1CM74U9J_t.jpg", badges: [{ text: "Exclusive", color: "bg-[#ff0055]" }]
-            },
-            {
-                id: "trig8", title: "White FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "60.00", originalPrice: "75.00", rating: "4.8", image: "https://thumbs2.imgbox.com/5c/df/xHU6n2IS_t.jpg", badges: []
-            },
-            {
-                id: "trig9", title: "Black FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "75.00", rating: "4.8", image: "https://images2.imgbox.com/76/66/TPjzs9TF_o.jpg", badges: []
-            },
-            {
-                id: "trig10", title: "Choco Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "4.7", image: "https://images2.imgbox.com/30/da/hlXPD8jM_o.jpg", badges: []
-            },
-            {
-                id: "trig11", title: "Brownie Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "60.00", originalPrice: "75.00", rating: "4.7", image: "https://images2.imgbox.com/8e/48/oQigV0o5_o.jpg", badges: []
-            },
-            {
-                id: "trig12", title: "Choco Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "70.00", rating: "4.9", image: "https://thumbs2.imgbox.com/2e/d1/cRWbGvKs_t.jpg", badges: []
-            },
-            {
-                id: "trig13", title: "Cummy King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "5.0", image: "https://thumbs2.imgbox.com/7c/7b/VmgHf8h1_t.jpg", badges: [{ text: "Top Rated", color: "bg-green-500" }]
-            },
-            {
-                id: "trig14", title: "King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "55.00", rating: "4.6", image: "https://thumbs2.imgbox.com/85/53/qIrcHeAy_t.jpg", badges: []
-            },
-            {
-                id: "trig15", title: "Cummy Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "55.00", originalPrice: "60.00", rating: "5.0", image: "https://thumbs2.imgbox.com/07/82/1oLB88UQ_t.jpg", badges: [{ text: "Must Have", color: "bg-[#ff0055]" }]
-            },
-            // Fillers for 16-20 (Coming Soon)
-            {
-                id: "trig16", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.0", originalPrice: "0.0", rating: "0.0", image: "", badges: []
-            },
-            {
-                id: "trig17", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
-            },
-            {
-                id: "trig18", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
-            },
-            {
-                id: "trig19", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
-            },
-            {
-                id: "trig20", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: []
-            }
+            { id: "trig1", title: "Venom Foreskin", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "80.00", originalPrice: "95.00", rating: "4.9", image: "https://images2.imgbox.com/18/9b/s2V18N06_o.jpg", badges: [{ text: "Best Seller", color: "bg-[#ff0055]" }] },
+            { id: "trig2", title: "Realistic BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "85.00", originalPrice: "100.00", rating: "4.8", image: "https://images2.imgbox.com/9c/b0/tn7UNlx7_o.jpg", badges: [{ text: "New", color: "bg-purple-500" }] },
+            { id: "trig3", title: "Red Veiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "75.00", rating: "5.0", image: "https://images2.imgbox.com/4e/2c/NIJEpSkP_o.jpg", badges: [{ text: "Hot", color: "bg-[#ff0055]" }] },
+            { id: "trig4", title: "Slingshot", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "120.00", rating: "4.7", image: "https://thumbs2.imgbox.com/6c/8b/SK0yIRMR_t.jpg", badges: [] },
+            { id: "trig5", title: "Wet BBC", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "90.00", originalPrice: "110.00", rating: "4.8", image: "https://images2.imgbox.com/ad/8d/4GNy3Z6n_o.jpg", badges: [] },
+            { id: "trig6", title: "Wetty/Shiny Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "4.9", image: "https://thumbs2.imgbox.com/c5/4a/M0DgBphC_t.jpg", badges: [{ text: "Popular", color: "bg-blue-500" }] },
+            { id: "trig7", title: "Wetty/Shiny Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "85.00", rating: "5.0", image: "https://thumbs2.imgbox.com/27/8d/1CM74U9J_t.jpg", badges: [{ text: "Exclusive", color: "bg-[#ff0055]" }] },
+            { id: "trig8", title: "White FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "60.00", originalPrice: "75.00", rating: "4.8", image: "https://thumbs2.imgbox.com/5c/df/xHU6n2IS_t.jpg", badges: [] },
+            { id: "trig9", title: "Black FatBull", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "75.00", rating: "4.8", image: "https://images2.imgbox.com/76/66/TPjzs9TF_o.jpg", badges: [] },
+            { id: "trig10", title: "Choco Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "4.7", image: "https://images2.imgbox.com/30/da/hlXPD8jM_o.jpg", badges: [] },
+            { id: "trig11", title: "Brownie Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "60.00", originalPrice: "75.00", rating: "4.7", image: "https://images2.imgbox.com/8e/48/oQigV0o5_o.jpg", badges: [] },
+            { id: "trig12", title: "Choco Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "65.00", originalPrice: "70.00", rating: "4.9", image: "https://thumbs2.imgbox.com/2e/d1/cRWbGvKs_t.jpg", badges: [] },
+            { id: "trig13", title: "Cummy King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "75.00", originalPrice: "80.00", rating: "5.0", image: "https://thumbs2.imgbox.com/7c/7b/VmgHf8h1_t.jpg", badges: [{ text: "Top Rated", color: "bg-green-500" }] },
+            { id: "trig14", title: "King Kong", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "50.00", originalPrice: "55.00", rating: "4.6", image: "https://thumbs2.imgbox.com/85/53/qIrcHeAy_t.jpg", badges: [] },
+            { id: "trig15", title: "Cummy Venom", category: "Gifting Triggers", subtitle: "Premium Animations • No Login", price: "55.00", originalPrice: "60.00", rating: "5.0", image: "https://thumbs2.imgbox.com/07/82/1oLB88UQ_t.jpg", badges: [{ text: "Must Have", color: "bg-[#ff0055]" }] },
+            { id: "trig16", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.0", originalPrice: "0.0", rating: "0.0", image: "", badges: [] },
+            { id: "trig17", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: [] },
+            { id: "trig18", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: [] },
+            { id: "trig19", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: [] },
+            { id: "trig20", title: "Coming Soon", category: "Upcoming", subtitle: "Stay Tuned", price: "0.00", originalPrice: "0.00", rating: "0.0", image: "", badges: [] }
         ];
 
         // --- RENDER PRODUCTS ---
-        async function renderProducts() {
+        function renderProducts() {
             const grid = document.getElementById('product-grid');
             if (!grid) return; 
             
             const { symbol, rate } = rates[currentCurrency];
 
-            // Helper to build HTML
             const buildCard = (product) => {
                  const isComingSoon = product.title === "Coming Soon";
                  const convertedPrice = currentCurrency === 'VCOIN' ? Math.round(product.price * rate).toLocaleString() : (product.price * rate).toFixed(2);
@@ -735,7 +697,6 @@
                              <div class="flex items-baseline gap-2 mb-6 p-3 rounded-xl">
                                  <span class="text-3xl font-black text-gray-700">${symbol}0</span>
                              </div>
-                             <!-- No Buttons -->
                              <div class="mt-auto pt-4 border-t border-gray-800/50">
                                 <span class="text-xs text-gray-600 font-mono uppercase">Unavailable</span>
                             </div>
@@ -779,7 +740,7 @@
 
         // --- PRODUCT DETAIL MODAL ---
         function openModal(productId) {
-            currentModalProductId = productId; // Store current product ID
+            currentModalProductId = productId;
             const product = productsData.find(p => p.id === productId);
             if(!product) return;
             const modal = document.getElementById('product-modal');
@@ -792,7 +753,6 @@
             document.getElementById('modal-price').innerText = `${symbol}${convertedPrice}`;
             document.getElementById('modal-rating').innerText = product.rating; 
             
-            // Dynamic Description Logic
             let skinText = "ANY SKIN (adapts your avatar skin tone automatically)";
             if (product.title === "Black FatBull") skinText = "Works well for Black skin Avatars";
             if (product.title === "White FatBull") skinText = "Works well for White skin avatars";
