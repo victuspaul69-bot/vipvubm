@@ -717,21 +717,27 @@
         const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // --- 2. Check Auth State on Page Load ---
-        async function checkAuthState() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            updateNavbarState(session);
-            
-            // THE ONE-LINER: Instantly kills the empty # on page load
-            if (window.location.href.endsWith('#')) window.history.replaceState(null, '', window.location.pathname);
-            
-            // Listen for changes (e.g. sign in on another tab)
-            supabaseClient.auth.onAuthStateChange((event, session) => {
-                updateNavbarState(session);
-                if (event === 'SIGNED_IN') {
-                    window.location.href = "/index.html"; // Clean URL redirect
-                }
-            });
+       async function checkAuthState() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    updateNavbarState(session);
+    
+    if (window.location.href.endsWith('#')) {
+        window.history.replaceState(null, '', window.location.pathname);
+    }
+    
+    // Listen for changes
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        updateNavbarState(session);
+
+        // ONLY redirect if the event is INITIAL_SESSION or SIGNED_IN 
+        // AND the current page is specifically the login page.
+        const isLoginPage = window.location.pathname.includes('login.html');
+        
+        if (event === 'SIGNED_IN' && isLoginPage) {
+            window.location.href = "/index.html";
         }
+    });
+}
 
         function updateNavbarState(session) {
             const authContainer = document.getElementById('auth-container');
