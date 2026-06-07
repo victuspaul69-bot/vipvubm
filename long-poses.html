@@ -22,26 +22,6 @@
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-      <script>
-      window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
-
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6209HKMYP1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6209HKMYP1');
-</script>
-    
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -118,12 +98,10 @@
 
     <!-- Top Banner -->
     <div class="w-full bg-gradient-to-r from-[#ff0055] to-[#aa0038] text-white border-b border-[#ff0055]/30 text-center py-2 text-sm font-bold tracking-widest shadow-[0_0_15px_rgba(255,0,85,0.3)] relative z-50">
-    
-    <marquee scrollamount="7">
-        Welcome To VIP VU BM Shop Now! **Note: If you are using a mobile device please use 'Desktop View' or 'Request Desktop Website' for better user experience**
-    </marquee>
-
-</div>
+        <marquee scrollamount="7">
+            Welcome To VIP VU BM Shop Now! **Note: If you are using a mobile device please use 'Desktop View' or 'Request Desktop Website' for better user experience**
+        </marquee>
+    </div>
 
     <!-- Navbar -->
     <nav class="w-full bg-[#0d0415]/95 backdrop-blur-md border-b border-[#ff0055]/30 sticky top-0 z-40 shadow-[0_4px_30px_rgba(255,0,85,0.15)]">
@@ -131,7 +109,6 @@
             <!-- Brand -->
             <a href="index.html" class="flex items-center gap-3 group cursor-pointer">
                 <img src="https://images2.imgbox.com/14/12/dXl0f5N5_o.jpg" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
-
                 <img src="https://images2.imgbox.com/f2/cf/Fs77LcED_o.png" alt="VIP VU BM" class="h-16 object-contain drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">
             </a>
 
@@ -190,7 +167,7 @@
                         </a>
                     </div>
                 </div>
-            <!-- MOBILE HAMBURGER BUTTON -->
+                <!-- MOBILE HAMBURGER BUTTON -->
                 <button id="mobile-menu-btn" class="md:hidden flex items-center text-gray-300 hover:text-[#ff0055] transition-colors focus:outline-none ml-2">
                     <i data-lucide="menu" class="w-8 h-8"></i>
                 </button>
@@ -200,13 +177,11 @@
 
     <!-- MOBILE MENU OVERLAY -->
     <div id="mobile-menu" class="hidden md:hidden fixed inset-0 w-full h-full bg-[#0d0415]/98 backdrop-blur-xl z-[100] overflow-y-auto flex flex-col pt-20 pb-10 shadow-[0_10px_30px_rgba(255,0,85,0.2)]">
-        <!-- Explicit Close Button -->
         <button id="mobile-close-btn" class="absolute top-6 right-6 text-gray-300 hover:text-[#ff0055] transition-colors focus:outline-none p-2 bg-[#ff0055]/10 rounded-full border border-[#ff0055]/30">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
 
         <div class="px-8 flex flex-col gap-5 text-lg font-bold text-gray-300">
-            
             <!-- User Profile / Auth Section -->
             <div id="mobile-auth-container" class="border-b border-gray-800 pb-5 mb-2">
                 <a href="login.html" class="block text-center px-4 py-3 rounded-xl border border-[#ff0055]/50 bg-[#ff0055]/10 text-[#ff0055] font-black tracking-wide hover:bg-gradient-to-r hover:from-[#ff0055] hover:to-[#aa0038] hover:text-white transition-all">Login / Register</a>
@@ -340,38 +315,80 @@
                 </div>
             </div>
 
-            <!-- Product Grid -->
+            <!-- Product Grid Title -->
             <div class="text-center mb-10">
                  <h2 class="text-4xl font-black text-white tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
                         Full Long Pose Collection <span class="text-[#ff0055]">🧘</span>
                 </h2>
+                <p class="text-gray-400 mt-2 text-sm">Hover over any pose to preview the animation. Click the Eye icon to maximize.</p>
             </div>
             
-            <div id="product-grid" class="max-w-2xl mx-auto">
-                <!-- Single Product Card -->
-                <div class="bg-[#12051a] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(255,0,85,0.2)] border border-[#ff0055]/40 hover:border-[#ff0055] hover:shadow-[0_0_60px_rgba(255,0,85,0.4)] transition-all duration-300 group flex flex-col">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-[#08020a]">
-                        <img src="https://images2.imgbox.com/82/a9/ogcN5WlY_o.jpeg" alt="Long Pose Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
-                         <div class="absolute top-3 left-3">
-                             <span class="bg-[#ff0055] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
-                                Best Value
-                            </span>
-                        </div>
-                    </div>
+            <!-- Dynamic Grid for 25 Items -->
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
 
-                    <div class="p-8 flex flex-col flex-grow relative text-center">
-                        <h3 class="text-2xl font-black text-white mb-2">Complete Long Pose Catalog</h3>
-                        <p class="text-sm text-gray-400 mb-6 font-medium">Browse our full collection of premium Black Market poses directly on Discord.</p>
+        <!-- PRODUCT MODAL -->
+        <div id="product-modal" class="fixed inset-0 z-[100] hidden">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/90 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+            
+            <!-- Modal Content -->
+            <div class="relative z-10 w-full max-w-5xl h-[90vh] bg-[#12051a] border border-[#ff0055]/30 rounded-3xl m-auto mt-5 md:mt-10 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(255,0,85,0.2)] modal-enter">
+                
+                <!-- Close Button -->
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:text-[#ff0055] transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+
+                <!-- Left: Video Media -->
+                <div class="w-full md:w-1/2 h-64 md:h-full bg-black relative flex items-center justify-center">
+                    <video id="modal-video" controls autoplay loop muted playsinline class="w-full h-full object-cover bg-black">
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- Right: Details & Reviews -->
+                <div class="w-full md:w-1/2 h-full flex flex-col bg-[#12051a]">
+                    <!-- Scrollable Area -->
+                    <div class="flex-grow overflow-y-auto custom-scroll p-8">
                         
-                        <div class="flex flex-col gap-3">
-                             <button onclick="window.open('https://discord.gg/ySt2hYZPfM', '_blank')" class="w-full py-4 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-black text-lg shadow-[0_0_20px_rgba(88,101,242,0.4)] hover:shadow-[0_0_30px_rgba(88,101,242,0.6)] transition-all uppercase tracking-wide border border-white/10 flex items-center justify-center gap-3 transform hover:-translate-y-1">
-                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                                View Catalog on Discord
-                            </button>
-                            
-                            <button onclick="openBuyModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#aa0038] text-white font-black text-lg shadow-[0_0_20px_rgba(88,101,242,0.4)] hover:shadow-[0_0_30px_rgba(88,101,242,0.6)] transition-all uppercase tracking-wide border border-white/10 flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                        <div class="mb-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span id="modal-category" class="text-[#ff0055] text-xs font-bold uppercase tracking-widest mb-1 block">CATEGORY</span>
+                                    <h2 id="modal-title" class="text-3xl font-black text-white leading-tight">Product Title</h2>
+                                </div>
+                                <div class="flex items-center gap-1 bg-[#ff0055]/10 px-2 py-1 rounded-lg">
+                                    <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i>
+                                    <span id="modal-rating" class="font-bold text-white text-sm">New</span>
+                                </div>
+                            </div>
+                            <p id="modal-price" class="text-3xl font-black text-[#ff0055] mt-4 mb-2">$0.00</p>
+                            <p id="modal-subtitle" class="text-gray-400 text-sm">Product subtitle goes here.</p>
+                            <p id="modal-desc-text" class="text-gray-400 text-sm mt-4 leading-relaxed"></p>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex gap-3 mb-8 border-b border-gray-800 pb-8">
+                            <button id="modal-buy-now" class="w-full py-4 bg-gradient-to-r from-[#ff0055] to-[#aa0038] rounded-xl font-bold text-white shadow-lg hover:shadow-[#ff0055]/30 transition-all transform hover:-translate-y-1">
                                 Buy Now
                             </button>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-8">
+                            <h4 class="font-bold text-white mb-2">Description</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                This premium pose includes exclusive animations and high-quality assets. Compatible with all avatar types. Delivered to your account swiftly upon purchase.
+                            </p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Smooth Animation</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 7 Days Warranty</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 24/7 Support</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -423,7 +440,6 @@
                 <div>
                     <a href="index.html" class="flex items-center gap-3 mb-6 group cursor-pointer w-fit">
                         <img src="https://images2.imgbox.com/14/12/dXl0f5N5_o.jpg" alt="VIP VU BM Logo" class="w-10 h-10 rounded-full border border-[#ff0055]/50 shadow-[0_0_15px_rgba(255,0,85,0.4)] group-hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all object-cover">
-
                 <img src="https://images2.imgbox.com/f2/cf/Fs77LcED_o.png" alt="VIP VU BM" class="h-16 object-contain drop-shadow-[0_0_8px_rgba(255,0,85,0.6)]">
                     </a>
                     <p class="text-gray-400 leading-relaxed mb-6 text-sm font-medium">
@@ -476,8 +492,7 @@
     })();
     </script>
 
-    <!-- MOBILE MENU JAVASCRIPT                         -->
-    <!-- ============================================== -->
+    <!-- MOBILE MENU JAVASCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -487,25 +502,15 @@
             const mobileShopMenu = document.getElementById('mobile-shop-menu');
             const mobileShopIcon = document.getElementById('mobile-shop-icon');
 
-            // Shared function to toggle menu
             function toggleMobileMenu() {
                 mobileMenu.classList.toggle('hidden');
                 const isHidden = mobileMenu.classList.contains('hidden');
-                // Lock scrolling when menu is open
                 document.body.style.overflow = isHidden ? '' : 'hidden';
             }
 
-            // Toggle Mobile Menu Open
-            if(mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            }
+            if(mobileMenuBtn && mobileMenu) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            if(mobileCloseBtn && mobileMenu) mobileCloseBtn.addEventListener('click', toggleMobileMenu);
 
-            // Close Mobile Menu using the explicitly added 'X' button
-            if(mobileCloseBtn && mobileMenu) {
-                mobileCloseBtn.addEventListener('click', toggleMobileMenu);
-            }
-
-            // Toggle Shop Dropdown inside Mobile Menu
             if(mobileShopBtn && mobileShopMenu) {
                 mobileShopBtn.addEventListener('click', () => {
                     mobileShopMenu.classList.toggle('hidden');
@@ -514,175 +519,183 @@
             }
         });
     </script>
-    <!-- ============================================== -->
 
-    <!-- Supabase Logic -->
+    <!-- Supabase Logic and Dynamic App Logic -->
     <script>
-        // --- 1. Supabase Initialization ---
-        // Define variables to prevent ReferenceError
+        // Currency Config
         let rates = { USD: { symbol: '$', rate: 1 } };
         let currentCurrency = 'USD';
 
-        const supabaseUrl = 'https://hvvhfrfpuxksgisitxbr.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dmhmcmZwdXhrc2dpc2l0eGJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NTkyMTQsImV4cCI6MjA4NjUzNTIxNH0.nzDWevBDC9qJovr5cGC68SwpMLJT-dwlF7wMXXO-dBU';
-        
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        // Poses Data Bucket (Easily editable list of 25 poses)
+        const posesData = [
+            { id: "pose_1", title: "Premium Long Pose 1", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/1.mp4", badges: [{text: "Best Seller", color: "bg-[#ff0055]"}], stockStatus: "available" },
+            { id: "pose_2", title: "Premium Long Pose 2", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.7", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/2.mp4", badges: [{text: "New", color: "bg-purple-500"}], stockStatus: "available" },
+            { id: "pose_3", title: "Premium Long Pose 3", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/3.mp4", badges: [{text: "Hot", color: "bg-[#ff0055]"}], stockStatus: "available" },
+            { id: "pose_4", title: "Premium Long Pose 4", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/4.mp4", badges: [], stockStatus: "low" },
+            { id: "pose_5", title: "Premium Long Pose 5", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/5.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_6", title: "Premium Long Pose 6", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.7", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/6.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_7", title: "Premium Long Pose 7", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/7.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_8", title: "Premium Long Pose 8", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/8.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_9", title: "Premium Long Pose 9", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/9.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_10", title: "Premium Long Pose 10", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "5.0", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/10.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_11", title: "Premium Long Pose 11", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/11.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_12", title: "Premium Long Pose 12", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/12.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_13", title: "Premium Long Pose 13", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.6", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/13.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_14", title: "Premium Long Pose 14", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.7", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/14.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_15", title: "Premium Long Pose 15", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/15.mp4", badges: [{text: "New", color: "bg-purple-500"}], stockStatus: "available" },
+            { id: "pose_16", title: "Premium Long Pose 16", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/16.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_17", title: "Premium Long Pose 17", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/17.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_18", title: "Premium Long Pose 18", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.7", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/18.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_19", title: "Premium Long Pose 19", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/19.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_20", title: "Premium Long Pose 20", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "5.0", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/20.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_21", title: "Premium Long Pose 21", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.8", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/21.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_22", title: "Premium Long Pose 22", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.7", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/22.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_23", title: "Premium Long Pose 23", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "5.0", video: "https://file.garden/aiTzyyDv7Sci7UzU/bandicam_2026-04-11_00-53-58-662.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_24", title: "Premium Long Pose 24", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "4.9", video: "https://file.garden/aiTzyyDv7Sci7UzU/pose/24.mp4", badges: [], stockStatus: "available" },
+            { id: "pose_25", title: "Premium Long Pose 25", category: "Long Poses", subtitle: "Smooth Animation • No Login Setup Available", price: "14.99", originalPrice: "17.99", rating: "5.0", video: "https://file.garden/aiTzyyDv7Sci7UzU/bandicam%202026-05-14%2000-37-55-702.mp4", badges: [], stockStatus: "available" }
+        ];
 
-        const authContainer = document.getElementById('auth-container');
-        const userProfileBtn = document.getElementById('user-profile-btn');
+        // Generate Grid
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if (!grid) return; 
+            
+            const { symbol, rate } = rates[currentCurrency];
 
-        let currentModalProductId = null;
-
-        // --- 2. Check Auth State on Page Load ---
-        async function checkAuthState() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    updateNavbarState(session);
-    
-    if (window.location.href.endsWith('#')) {
-        window.history.replaceState(null, '', window.location.pathname);
-    }
-    
-    // Listen for changes
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        updateNavbarState(session);
-
-        // ONLY redirect if the event is INITIAL_SESSION or SIGNED_IN 
-        // AND the current page is specifically the login page.
-        const isLoginPage = window.location.pathname.includes('login.html');
-        
-        if (event === 'SIGNED_IN' && isLoginPage) {
-            window.location.href = "/index.html";
-        }
-    });
-}
-
-        // --- 3. Update Navbar UI based on Session ---
-        function updateNavbarState(session) {
-            const authContainer = document.getElementById('auth-container');
-            const userProfileBtn = document.getElementById('user-profile-btn');
-            const mobileAuthContainer = document.getElementById('mobile-auth-container');
-
-            if (session) {
-                const user = session.user;
-                const avatarUrl = user.user_metadata?.avatar_url;
-                const userName = user.user_metadata?.full_name || user.user_metadata?.custom_claims?.global_name || user.user_metadata?.name || 'User';
-                const userEmail = user.email || 'Verified User';
-
-                // Desktop logic
-                if(authContainer) {
-                    authContainer.innerHTML = '';
-                    authContainer.style.display = 'none';
-                }
-
-                if (userProfileBtn) {
-                    const displayImage = avatarUrl ? 
-                        `<img src="${avatarUrl}" class="w-8 h-8 rounded-full border border-[#ff0055] shadow-lg shadow-[#ff0055]/40 hover:scale-105 transition-transform object-cover" />` : 
-                        `<div class="w-8 h-8 rounded-full bg-[#ff0055] flex items-center justify-center text-white font-bold border border-[#ff0055]">${userName[0].toUpperCase()}</div>`;
-                    
-                    userProfileBtn.innerHTML = `
-                        <div class="relative group" id="profile-trigger-container">
-                            <div onclick="toggleProfileDropdown(event)">${displayImage}</div>
-                            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full pt-4 w-64 z-50 fade-in-scale">
-                                <div class="bg-[#12051a] border border-[#ff0055]/30 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden">
-                                    <div class="p-4 border-b border-[#ff0055]/20 bg-[#ff0055]/5">
-                                        <p class="text-white font-bold truncate">${userName}</p>
-                                        <p class="text-xs text-gray-400 truncate">${userEmail}</p>
-                                    </div>
-                                    <div class="p-2">
-                                        <button onclick="handleSignOut()" class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#ff0055]/10 rounded-lg transition-colors flex items-center gap-2">
-                                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign Out
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                // Mobile logic
-                if (mobileAuthContainer) {
-                    const mobileDisplayImage = avatarUrl ? 
-                        `<img src="${avatarUrl}" class="w-12 h-12 rounded-full border border-[#ff0055] shadow-lg object-cover" />` : 
-                        `<div class="w-12 h-12 rounded-full bg-[#ff0055] flex items-center justify-center text-white font-bold text-xl">${userName[0].toUpperCase()}</div>`;
-
-                    mobileAuthContainer.innerHTML = `
-                        <div class="bg-[#12051a] rounded-2xl border border-[#ff0055]/40 overflow-hidden w-full mb-2">
-                            <div class="p-5 flex items-center gap-4 border-b border-[#ff0055]/20">
-                                ${mobileDisplayImage}
-                                <div class="flex flex-col overflow-hidden">
-                                    <span class="text-white font-bold text-xl truncate">${userName}</span>
-                                    <span class="text-sm text-gray-400 truncate">${userEmail}</span>
-                                </div>
-                            </div>
-                            <button onclick="handleSignOut()" class="w-full text-left px-5 py-3.5 text-gray-300 hover:text-white hover:bg-[#ff0055]/10 transition-colors flex items-center gap-3">
-                                <i data-lucide="log-out" class="w-5 h-5"></i> Sign Out
-                            </button>
-                        </div>
-                    `;
-                }
-
-            } else {
-                // Desktop Logged Out
-                if(authContainer) {
-                    authContainer.style.display = 'block';
-                    authContainer.innerHTML = `<a href="login.html" id="nav-login-btn" class="px-4 py-1.5 rounded-full border border-[#ff0055]/50 bg-[#ff0055]/10 text-[#ff0055] hover:bg-gradient-to-r hover:from-[#ff0055] hover:to-[#aa0038] hover:text-white hover:border-transparent hover:shadow-[0_0_15px_rgba(255,0,85,0.6)] transition-all duration-300">Login / Register</a>`;
-                }
+            const buildCard = (product) => {
+                const convertedPrice = (product.price * rate).toFixed(2);
+                const convertedOriginal = (product.originalPrice * rate).toFixed(2);
+                const badgesHtml = product.badges.map(badge => `<span class="${badge.color} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-[0_0_10px_rgba(255,0,85,0.5)] flex items-center gap-1 border border-white/20">${badge.text}</span>`).join('');
                 
-                if(userProfileBtn) {
-                     userProfileBtn.innerHTML = `<a href="login.html" title="Login"><i data-lucide="user" class="w-5 h-5 hover:text-[#ff0055] hover:drop-shadow-[0_0_8px_rgba(255,0,85,0.8)] transition-all"></i></a>`;
+                let statusBadge = '';
+                let actionButton = `<button onclick="event.stopPropagation(); openBuyModal('${product.title}')" class="flex-grow py-3.5 rounded-xl bg-gradient-to-r from-[#ff0055] to-[#d40047] text-white font-black text-center shadow-[0_0_15px_rgba(255,0,85,0.4)] hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all uppercase tracking-wide border border-white/10">Buy Now</button>`;
+
+                if (product.stockStatus === 'out') {
+                    statusBadge = `<div class="absolute top-3 right-3 z-20 px-3 py-1 text-[10px] font-bold text-red-500 bg-[#08020a]/80 border border-red-600 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#ef4444] cursor-default uppercase tracking-wider backdrop-blur-md">Out of Stock</div>`;
+                    actionButton = `<a href="https://discord.gg/ySt2hYZPfM" target="_blank" onclick="event.stopPropagation();" class="flex-grow py-3.5 rounded-xl bg-gradient-to-r from-gray-700 to-gray-900 text-white font-black text-center shadow-[0_0_15px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all uppercase tracking-wide border border-white/10 flex items-center justify-center gap-2"><i data-lucide="bell" class="w-4 h-4 inline-block"></i> Notify Me</a>`;
+                } else if (product.stockStatus === 'low') {
+                    statusBadge = `<div class="absolute top-3 right-3 z-20 px-3 py-1 text-[10px] font-bold text-yellow-400 bg-[#08020a]/80 border border-yellow-500 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#eab308] cursor-default uppercase tracking-wider backdrop-blur-md">Only 1 left</div>`;
+                } else {
+                    statusBadge = `<div class="absolute top-3 right-3 z-20 px-3 py-1 text-[10px] font-bold text-green-400 bg-[#08020a]/80 border border-green-500 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_#22c55e] cursor-default uppercase tracking-wider backdrop-blur-md">Available</div>`;
                 }
 
-                // Mobile Logged Out
-                if (mobileAuthContainer) {
-                    mobileAuthContainer.innerHTML = `<a href="login.html" class="block text-center px-4 py-3 rounded-xl border border-[#ff0055]/50 bg-[#ff0055]/10 text-[#ff0055] font-black tracking-wide hover:bg-gradient-to-r hover:from-[#ff0055] hover:to-[#aa0038] hover:text-white transition-all">Login / Register</a>`;
-                }
-            }
+                return `
+                <div onmouseenter="playVid('${product.id}')" onmouseleave="pauseVid('${product.id}')" onclick="openModal('${product.id}')" class="cursor-pointer bg-[#12051a] rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-[#ff0055]/20 hover:border-[#ff0055] hover:shadow-[0_0_30px_rgba(255,0,85,0.3)] transition-all duration-300 group flex flex-col">
+                    
+                    <!-- Video Container (Replaced Image) -->
+                    <div class="relative aspect-[16/9] overflow-hidden bg-[#08020a] flex items-center justify-center">
+                        <video id="vid-${product.id}" src="${product.video}" muted loop playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 pointer-events-none"></video>
+                        <div class="absolute top-3 left-3 flex flex-col gap-2 z-20">${badgesHtml}</div>
+                        ${statusBadge}
+                        <!-- Play Indicator (Shows when paused) -->
+                        <div id="play-icon-${product.id}" class="absolute inset-0 m-auto w-12 h-12 bg-black/50 rounded-full flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 border border-white/20">
+                            <i data-lucide="play" class="w-5 h-5 text-white fill-current ml-1"></i>
+                        </div>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="p-6 flex flex-col flex-grow relative">
+                        <div class="flex justify-between items-center mb-3 mt-2">
+                            <span class="text-xs font-bold text-[#ff0055] uppercase tracking-widest bg-[#ff0055]/10 border border-[#ff0055]/20 px-2.5 py-1 rounded-md">${product.category}</span>
+                            <div class="flex items-center gap-1 text-white font-bold text-sm bg-[#08020a] px-2 py-1 rounded-md border border-gray-800">
+                                <i data-lucide="star" class="w-4 h-4 text-[#ff0055] fill-current"></i> 
+                                <span>${product.rating}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-white mb-1 leading-tight line-clamp-1">${product.title}</h3>
+                        <p class="text-sm text-gray-400 mb-5 line-clamp-1 flex-grow font-medium">${product.subtitle}</p>
+                        <div class="flex items-baseline gap-2 mb-6 bg-[#08020a] p-3 rounded-xl border border-[#ff0055]/10">
+                            <span class="text-3xl font-black text-[#ff0055]">${symbol}${convertedPrice}</span>
+                            <span class="text-sm font-bold text-gray-500 line-through">${symbol}${convertedOriginal}</span>
+                        </div>
+                        <div class="flex items-center gap-2 mt-auto">
+                            ${actionButton}
+                            <button onclick="event.stopPropagation(); openModal('${product.id}')" class="p-3.5 rounded-xl border-2 border-[#ff0055]/30 text-gray-300 hover:border-[#ff0055] hover:text-[#ff0055] hover:bg-[#ff0055]/10 transition-all"><i data-lucide="maximize-2" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            };
+
+            grid.innerHTML = posesData.map(p => buildCard(p)).join('');
             if(window.lucide) lucide.createIcons();
         }
 
-        window.toggleProfileDropdown = function(e) {
-            e.stopPropagation();
-            const menu = document.getElementById('profile-dropdown-menu');
-            if (menu) {
-                menu.classList.toggle('hidden');
-            }
+        // --- Video Play/Pause Handlers ---
+        window.playVid = function(id) {
+            const v = document.getElementById('vid-' + id);
+            const icon = document.getElementById('play-icon-' + id);
+            if (v) v.play().catch(e => console.log('Autoplay blocked on hover'));
+            if (icon) icon.style.opacity = '0'; // hide play icon forcefully
         }
 
-        document.addEventListener('click', function(e) {
-            const menu = document.getElementById('profile-dropdown-menu');
-            const container = document.getElementById('profile-trigger-container');
-            if (menu && !menu.classList.contains('hidden') && container && !container.contains(e.target)) {
-                menu.classList.add('hidden');
-            }
-        });
-
-        window.handleSignOut = async function() {
-            const { error } = await supabaseClient.auth.signOut();
-            if (!error) {
-                window.location.reload();
-            }
-        };
-
-        // --- 5. Initialize ---
-        window.onload = () => {
-            // renderCurrencySidebar(); // Disabled
-            lucide.createIcons();
-            checkAuthState(); 
-        };
-
-        // Sidebar Logic (Empty to prevent error)
-        function renderCurrencySidebar() {
-             const sidebar = document.getElementById('currency-sidebar');
-             if(sidebar) sidebar.innerHTML = ''; 
+        window.pauseVid = function(id) {
+            const v = document.getElementById('vid-' + id);
+            const icon = document.getElementById('play-icon-' + id);
+            if (v) v.pause();
+            if (icon) icon.style.opacity = '1'; // show play icon
         }
 
-        // --- BUY OPTIONS MODAL ---
-        function openBuyModal() {
-            const modal = document.getElementById('buy-modal');
+
+        // --- Modals ---
+        window.openModal = function(productId) {
+            const product = posesData.find(p => p.id === productId);
+            if(!product) return;
+            
+            const modal = document.getElementById('product-modal');
+            const { symbol, rate } = rates[currentCurrency];
+            const convertedPrice = (product.price * rate).toFixed(2);
+            
+            const modalVideo = document.getElementById('modal-video');
+            modalVideo.src = product.video;
+            modalVideo.play().catch(e => console.log("Autoplay blocked:", e));
+            
+            document.getElementById('modal-category').innerText = product.category;
+            document.getElementById('modal-title').innerText = product.title;
+            document.getElementById('modal-subtitle').innerText = product.subtitle;
+            document.getElementById('modal-price').innerText = `${symbol}${convertedPrice}`;
+            document.getElementById('modal-rating').innerText = product.rating; 
+            
+            document.getElementById('modal-desc-text').innerHTML = `
+                <strong class="text-white">PREMIUM LONG POSE - EXCLUSIVE</strong><br><br>
+                Payment: PayPal, CashApp, Chime, Crypto, UPI<br>
+                Description: High-quality smooth animation for any platform.<br>
+                Note: Login required only if setup is requested.
+            `;
+
+            const modalBuyBtn = document.getElementById('modal-buy-now');
+            if (product.stockStatus === 'out') {
+                modalBuyBtn.innerHTML = '<i data-lucide="bell" class="w-5 h-5 inline-block mr-2"></i> Notify Me';
+                modalBuyBtn.className = "w-full py-4 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl font-bold text-white shadow-lg hover:shadow-gray-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center";
+                modalBuyBtn.onclick = () => { window.open("https://discord.gg/ySt2hYZPfM", "_blank"); };
+            } else {
+                modalBuyBtn.innerHTML = 'Buy Now';
+                modalBuyBtn.className = "w-full py-4 bg-gradient-to-r from-[#ff0055] to-[#aa0038] rounded-xl font-bold text-white shadow-lg hover:shadow-[#ff0055]/30 transition-all transform hover:-translate-y-1 flex items-center justify-center";
+                modalBuyBtn.onclick = () => { closeModal(); openBuyModal(product.title); };
+            }
+
             modal.classList.remove('hidden');
+            if(window.lucide) lucide.createIcons();
         }
-        function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
 
+        window.closeModal = function() { 
+            document.getElementById('product-modal').classList.add('hidden'); 
+            const modalVideo = document.getElementById('modal-video');
+            if (modalVideo) {
+                modalVideo.pause();
+                modalVideo.src = "";
+            }
+        }
+
+        window.openBuyModal = function() { document.getElementById('buy-modal').classList.remove('hidden'); }
+        window.closeBuyModal = function() { document.getElementById('buy-modal').classList.add('hidden'); }
+
+        // --- Init ---
+        window.onload = () => {
+            renderProducts();
+            if(window.lucide) lucide.createIcons();
+            // (Auth Logic / Nav State would go here depending on supabase usage)
+        };
     </script>
 </body>
 </html>
